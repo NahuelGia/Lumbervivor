@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhuishoptscn1"]
+
+[ext_resource type="Script" uid="uid://bshopgdscript1" path="res://scenes/ui/shop/shop.gd" id="1_shop"]
+
+[node name="Shop" type="Control"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -200.0
+offset_right = 150.0
+offset_bottom = 200.0
+script = ExtResource("1_shop")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+text = "Shop  (P to close)"
+horizontal_alignment = 1
+
+[node name="BuyHealthButton" type="Button" parent="PanelContainer/VBoxContainer"]
+text = "Buy Health  +20 HP  —  5 wood"
+
+[node name="BuyDamageButton" type="Button" parent="PanelContainer/VBoxContainer"]
+text = "Buy Damage  +10 DMG  —  8 wood"
+
+[node name="BuySpeedButton" type="Button" parent="PanelContainer/VBoxContainer"]
+text = "Buy Speed  +30 SPD  —  6 wood"

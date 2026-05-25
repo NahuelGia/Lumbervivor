@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhuihudisc01"]
+
+[ext_resource type="Script" uid="uid://bhudgdscript01" path="res://scenes/ui/hud/hud.gd" id="1_hud"]
+
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_hud")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 220.0
+offset_bottom = 80.0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+text = "Health: 100 / 100"
+
+[node name="WoodLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+text = "Wood: 0"

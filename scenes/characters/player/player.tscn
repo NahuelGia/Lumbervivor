@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bplayertscn01"]
+
+[ext_resource type="Script" uid="uid://d2rf7eq0y488x" path="res://scenes/characters/player/player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://8iom0g6y3ugx" path="res://scenes/components/axe/axe.gd" id="2_axe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_player"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_axe"]
+radius = 14.0
+
+[node name="Player" type="CharacterBody2D" unique_id=519182806]
+script = ExtResource("1_player")
+move_speed = 250.0
+
+[node name="Visual" type="Polygon2D" parent="." unique_id=1665269722]
+color = Color(0.2, 0.75, 1, 1)
+polygon = PackedVector2Array(-16, -24, 16, -24, 16, 24, -16, 24)
+
+[node name="DirectionIndicator" type="Polygon2D" parent="." unique_id=778166204]
+color = Color(1, 1, 1, 0.9)
+polygon = PackedVector2Array(12, -5, 24, 0, 12, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=375116636]
+shape = SubResource("CircleShape2D_player")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1890270269]
+
+[node name="Axe" type="Area2D" parent="." unique_id=821378657]
+script = ExtResource("2_axe")
+
+[node name="Visual" type="Polygon2D" parent="Axe" unique_id=300362211]
+position = Vector2(32, 0)
+color = Color(0.85, 0.55, 0.1, 1)
+polygon = PackedVector2Array(-10, -5, 10, -5, 10, 5, -10, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Axe" unique_id=1180548265]
+position = Vector2(32, 0)
+shape = SubResource("CircleShape2D_axe")
