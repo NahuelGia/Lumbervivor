@@ -53,6 +53,11 @@ func _on_axe_hit_tree(tree: ChoppableTree) -> void:
 	tree.take_damage(axe.damage)
 
 
+func restore_health() -> void:
+	current_health = max_health
+	health_changed.emit(current_health, max_health)
+
+
 func _on_tree_chopped() -> void:
 	wood += WOOD_PER_TREE
 	wood_changed.emit(wood)
