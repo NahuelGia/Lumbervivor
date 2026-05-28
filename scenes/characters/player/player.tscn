@@ -10,8 +10,8 @@ radius = 18.0
 radius = 14.0
 
 [node name="Player" type="CharacterBody2D" unique_id=519182806]
+collision_mask = 14
 script = ExtResource("1_player")
-move_speed = 250.0
 
 [node name="Visual" type="Polygon2D" parent="." unique_id=1665269722]
 color = Color(0.2, 0.75, 1, 1)
@@ -27,6 +27,8 @@ shape = SubResource("CircleShape2D_player")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1890270269]
 
 [node name="Axe" type="Area2D" parent="." unique_id=821378657]
+collision_layer = 0
+collision_mask = 6
 script = ExtResource("2_axe")
 
 [node name="Visual" type="Polygon2D" parent="Axe" unique_id=300362211]
