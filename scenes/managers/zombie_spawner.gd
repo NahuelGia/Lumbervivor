@@ -11,6 +11,7 @@ var zombies_spawned_this_night: int = 0
 var night_zombie_quota: int = 0
 var _night_ending: bool = false
 var _terrain_half: Vector2
+var _current_round: int = 1
 
 signal all_zombies_cleared
 
@@ -30,6 +31,7 @@ func setup(p: Player, fence: CabinFence, container: Node2D, terrain_half: Vector
 
 
 func begin_night(round: int) -> void:
+	_current_round = round
 	_night_ending = false
 	night_zombie_quota = 10 + (round - 1) * 2
 	zombies_spawned_this_night = 0
@@ -61,10 +63,23 @@ func _spawn_one_zombie() -> void:
 	var zombie: Zombie = ZOMBIE_SCENE.instantiate()
 	zombie.position = _random_position_on_edge()
 	zombie.target = _cabin_fence if randf() < 0.7 else _player
+	zombie.setup_type(_pick_zombie_type(), _current_round)
 	_zombies_container.add_child(zombie)
 	zombie.died.connect(_on_zombie_died)
 	active_zombies += 1
 	zombies_spawned_this_night += 1
+
+
+func _pick_zombie_type() -> Zombie.ZombieType:
+	if _current_round < 3:
+		return Zombie.ZombieType.NORMAL
+	var roll := randf()
+	if roll < 0.5:
+		return Zombie.ZombieType.NORMAL
+	elif roll < 0.8:
+		return Zombie.ZombieType.RUNNER
+	else:
+		return Zombie.ZombieType.TANK
 
 
 func _on_zombie_died() -> void:
