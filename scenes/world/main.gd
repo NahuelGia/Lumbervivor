@@ -8,7 +8,6 @@ const INITIAL_TREE_COUNT: int = 15
 @onready var trees_container: Node2D = $World/Trees
 @onready var zombies_container: Node2D = $World/Zombies
 @onready var cabin_fence: CabinFence = $World/Cabin/CabinFence
-@onready var nav_region: NavigationRegion2D = $World/NavigationRegion2D
 @onready var canvas_modulate: CanvasModulate = $World/CanvasModulate
 @onready var hud: HUD = $UI/HUD
 @onready var shop: Shop = $UI/Shop
@@ -18,7 +17,6 @@ const INITIAL_TREE_COUNT: int = 15
 
 
 func _ready() -> void:
-	_setup_navigation()
 	_spawn_trees()
 	zombie_spawner.setup(player, cabin_fence, zombies_container, TERRAIN_HALF)
 	day_night_cycle.setup(canvas_modulate, victory_label, zombie_spawner)
@@ -36,19 +34,6 @@ func _on_fence_destroyed() -> void:
 func _on_day_started(_round: int) -> void:
 	player.restore_health()
 	_spawn_trees()
-
-
-func _setup_navigation() -> void:
-	var nav_poly := NavigationPolygon.new()
-	var verts := PackedVector2Array([
-		Vector2(-TERRAIN_HALF.x, -TERRAIN_HALF.y),
-		Vector2(TERRAIN_HALF.x, -TERRAIN_HALF.y),
-		Vector2(TERRAIN_HALF.x, TERRAIN_HALF.y),
-		Vector2(-TERRAIN_HALF.x, TERRAIN_HALF.y)
-	])
-	nav_poly.vertices = verts
-	nav_poly.add_polygon(PackedInt32Array([0, 1, 2, 3]))
-	nav_region.navigation_polygon = nav_poly
 
 
 func _spawn_trees() -> void:
