@@ -17,6 +17,7 @@ func _ready() -> void:
 	current_health = max_health
 	nav_agent.max_speed = move_speed
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
+	await get_tree().physics_frame
 
 
 func _physics_process(_delta: float) -> void:
