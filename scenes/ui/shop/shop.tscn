@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhuishoptscn1"]
+[gd_scene format=3 uid="uid://bhuishoptscn1"]
 
-[ext_resource type="Script" uid="uid://bshopgdscript1" path="res://scenes/ui/shop/shop.gd" id="1_shop"]
+[ext_resource type="Script" uid="uid://caidybbgslgtw" path="res://scenes/ui/shop/shop.gd" id="1_shop"]
 
-[node name="Shop" type="Control"]
+[node name="Shop" type="Control" unique_id=593575080]
 visible = false
+layout_mode = 3
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -14,21 +16,27 @@ offset_right = 150.0
 offset_bottom = 200.0
 script = ExtResource("1_shop")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1908535790]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1666593555]
+layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="PanelContainer/VBoxContainer" unique_id=348096166]
+layout_mode = 2
 text = "Shop  (P to close)"
 horizontal_alignment = 1
 
-[node name="BuyHealthButton" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="BuyHealthButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1896729464]
+layout_mode = 2
 text = "Buy Health  +20 HP  —  5 wood"
 
-[node name="BuyDamageButton" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="BuyDamageButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1884703379]
+layout_mode = 2
 text = "Buy Damage  +10 DMG  —  8 wood"
 
-[node name="BuySpeedButton" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="BuySpeedButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1785693498]
+layout_mode = 2
 text = "Buy Speed  +30 SPD  —  6 wood"
