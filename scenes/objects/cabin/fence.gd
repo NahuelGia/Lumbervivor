@@ -13,6 +13,8 @@ func _ready() -> void:
 
 
 func take_damage(amount: int) -> void:
+	if current_health <= 0:
+		return
 	current_health -= amount
 	if current_health <= 0:
 		destroyed.emit()
