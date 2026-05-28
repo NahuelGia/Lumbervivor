@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bhuihudisc01" path="res://scenes/ui/hud/hud.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://bhuishoptscn1" path="res://scenes/ui/shop/shop.tscn" id="4_shop"]
 [ext_resource type="PackedScene" uid="uid://fencescene1" path="res://scenes/objects/cabin/fence.tscn" id="5_fence"]
+[ext_resource type="PackedScene" uid="uid://bq3wn3jqbhtku" path="res://scenes/managers/zombie_spawner.tscn" id="6_zombie_spawner"]
+[ext_resource type="PackedScene" uid="uid://daynightcycletscn1" path="res://scenes/managers/day_night_cycle.tscn" id="7_day_night_cycle"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1640, 20)
@@ -105,12 +107,9 @@ position = Vector2(3, 113)
 [node name="Player" parent="World" unique_id=1748240203 instance=ExtResource("2_player")]
 position = Vector2(0, 300)
 
-[node name="ZombieSpawnTimer" type="Timer" parent="." unique_id=198100103]
-wait_time = 8.0
+[node name="ZombieSpawner" parent="." unique_id=300000001 instance=ExtResource("6_zombie_spawner")]
 
-[node name="DayNightTimer" type="Timer" parent="." unique_id=897654321]
-wait_time = 300.0
-autostart = true
+[node name="DayNightCycle" parent="." unique_id=300000002 instance=ExtResource("7_day_night_cycle")]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1224680545]
 
