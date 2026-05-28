@@ -1,18 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://fencescene1"]
+[gd_scene format=3 uid="uid://fencescene1"]
 
-[ext_resource type="Script" uid="uid://fencegdscr1" path="res://scenes/objects/cabin/fence.gd" id="1_fence"]
+[ext_resource type="Script" uid="uid://csjftk08hfm8t" path="res://scenes/objects/cabin/fence.gd" id="1_fence"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(280.0, 40.0)
+size = Vector2(280, 40)
 
-[node name="CabinFence" type="StaticBody2D"]
+[node name="CabinFence" type="StaticBody2D" unique_id=1205465148]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_fence")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=367119511]
 shape = SubResource("RectangleShape2D_1")
 
-[node name="Visual" type="Polygon2D" parent="."]
-color = Color(1.0, 0.6, 0.8, 1.0)
+[node name="Visual" type="Polygon2D" parent="." unique_id=658107056]
+color = Color(1, 0.6, 0.8, 1)
 polygon = PackedVector2Array(-140, -20, 140, -20, 140, 20, -140, 20)

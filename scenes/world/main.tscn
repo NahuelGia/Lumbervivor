@@ -1,43 +1,118 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmainscenetsc"]
+[gd_scene format=3 uid="uid://bmainscenetsc"]
 
-[ext_resource type="Script" uid="uid://bmaingdscript1" path="res://scenes/world/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://0lhxnoaofq78" path="res://scenes/world/main.gd" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://bplayertscn01" path="res://scenes/characters/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://bhuihudisc01" path="res://scenes/ui/hud/hud.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://bhuishoptscn1" path="res://scenes/ui/shop/shop.tscn" id="4_shop"]
 [ext_resource type="PackedScene" uid="uid://fencescene1" path="res://scenes/objects/cabin/fence.tscn" id="5_fence"]
 
-[node name="Main" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(1640, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(20, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cabin"]
+size = Vector2(80, 80)
+
+[node name="Main" type="Node2D" unique_id=423251905]
 script = ExtResource("1_main")
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="." unique_id=1799094816]
 
-[node name="Terrain" type="Polygon2D" parent="World"]
+[node name="Terrain" type="Polygon2D" parent="World" unique_id=18946474]
 color = Color(0.18, 0.52, 0.18, 1)
 polygon = PackedVector2Array(-800, -500, 800, -500, 800, 500, -800, 500)
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="World"]
+[node name="WorldBorder" type="Node2D" parent="World" unique_id=1767097003]
 
-[node name="Cabin" type="Node2D" parent="World"]
+[node name="WallTop" type="StaticBody2D" parent="World/WorldBorder" unique_id=633550500]
+position = Vector2(0, -510)
+collision_layer = 8
+collision_mask = 0
 
-[node name="CabinBuilding" type="Polygon2D" parent="World/Cabin"]
-color = Color(0.55, 0.35, 0.15, 1.0)
-polygon = PackedVector2Array(-40, -30, 40, -30, 40, 30, -40, 30)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/WorldBorder/WallTop" unique_id=2138387025]
+shape = SubResource("RectangleShape2D_wall_h")
 
-[node name="CabinFence" parent="World/Cabin" instance=ExtResource("5_fence")]
+[node name="Visual" type="Polygon2D" parent="World/WorldBorder/WallTop" unique_id=1768056634]
+color = Color(0.5, 0.5, 0.5, 1)
+polygon = PackedVector2Array(-820, -10, 820, -10, 820, 10, -820, 10)
 
-[node name="Trees" type="Node2D" parent="World"]
+[node name="WallBottom" type="StaticBody2D" parent="World/WorldBorder" unique_id=524336594]
+position = Vector2(0, 510)
+collision_layer = 8
+collision_mask = 0
 
-[node name="Zombies" type="Node2D" parent="World"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/WorldBorder/WallBottom" unique_id=974877509]
+shape = SubResource("RectangleShape2D_wall_h")
 
-[node name="Player" parent="World" instance=ExtResource("2_player")]
+[node name="Visual" type="Polygon2D" parent="World/WorldBorder/WallBottom" unique_id=416472138]
+color = Color(0.5, 0.5, 0.5, 1)
+polygon = PackedVector2Array(-820, -10, 820, -10, 820, 10, -820, 10)
+
+[node name="WallLeft" type="StaticBody2D" parent="World/WorldBorder" unique_id=714974968]
+position = Vector2(-810, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/WorldBorder/WallLeft" unique_id=1926601503]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Visual" type="Polygon2D" parent="World/WorldBorder/WallLeft" unique_id=1675365843]
+color = Color(0.5, 0.5, 0.5, 1)
+polygon = PackedVector2Array(-10, -500, 10, -500, 10, 500, -10, 500)
+
+[node name="WallRight" type="StaticBody2D" parent="World/WorldBorder" unique_id=117222011]
+position = Vector2(810, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/WorldBorder/WallRight" unique_id=594868150]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Visual" type="Polygon2D" parent="World/WorldBorder/WallRight" unique_id=1786859227]
+color = Color(0.5, 0.5, 0.5, 1)
+polygon = PackedVector2Array(-10, -500, 10, -500, 10, 500, -10, 500)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="World" unique_id=99704447]
+
+[node name="Cabin" type="Node2D" parent="World" unique_id=1630842420]
+position = Vector2(-2, -614)
+metadata/_edit_group_ = true
+
+[node name="CabinBuilding" type="StaticBody2D" parent="World/Cabin" unique_id=1725011347]
+scale = Vector2(2, 2)
+collision_layer = 8
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Cabin/CabinBuilding" unique_id=1038741020]
+shape = SubResource("RectangleShape2D_cabin")
+
+[node name="Visual" type="Polygon2D" parent="World/Cabin/CabinBuilding" unique_id=584281930]
+color = Color(0.55, 0.35, 0.15, 1)
+polygon = PackedVector2Array(-40, -40, 40, -40, 40, 40, -40, 40)
+
+[node name="CabinFence" parent="World/Cabin" unique_id=1996444647 instance=ExtResource("5_fence")]
+position = Vector2(3, 113)
+
+[node name="Trees" type="Node2D" parent="World" unique_id=2140820108]
+
+[node name="Zombies" type="Node2D" parent="World" unique_id=1287345814]
+
+[node name="Player" parent="World" unique_id=1748240203 instance=ExtResource("2_player")]
 position = Vector2(0, 300)
 
-[node name="ZombieSpawnTimer" type="Timer" parent="."]
+[node name="ZombieSpawnTimer" type="Timer" parent="." unique_id=198100103]
 wait_time = 8.0
 autostart = true
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1224680545]
 
-[node name="HUD" parent="UI" instance=ExtResource("3_hud")]
+[node name="HUD" parent="UI" unique_id=171955648 instance=ExtResource("3_hud")]
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Shop" parent="UI" instance=ExtResource("4_shop")]
+[node name="Shop" parent="UI" unique_id=729894584 instance=ExtResource("4_shop")]
+grow_horizontal = 2
+grow_vertical = 2
