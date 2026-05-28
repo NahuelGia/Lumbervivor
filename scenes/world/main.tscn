@@ -6,13 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://bhuishoptscn1" path="res://scenes/ui/shop/shop.tscn" id="4_shop"]
 [ext_resource type="PackedScene" uid="uid://fencescene1" path="res://scenes/objects/cabin/fence.tscn" id="5_fence"]
 [ext_resource type="PackedScene" uid="uid://bq3wn3jqbhtku" path="res://scenes/managers/zombie_spawner.tscn" id="6_zombie_spawner"]
-[ext_resource type="PackedScene" uid="uid://daynightcycletscn1" path="res://scenes/managers/day_night_cycle.tscn" id="7_day_night_cycle"]
+[ext_resource type="PackedScene" uid="uid://cukj82l2f7l7a" path="res://scenes/managers/day_night_cycle.tscn" id="7_day_night_cycle"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1640, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
 size = Vector2(20, 1000)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_terrain"]
+vertices = PackedVector2Array(-750, -450, 750, -450, 750, 450, -750, 450)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-750, -450, 750, -450, 750, 450, -750, 450)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cabin"]
 size = Vector2(80, 80)
@@ -77,6 +82,7 @@ color = Color(0.5, 0.5, 0.5, 1)
 polygon = PackedVector2Array(-10, -500, 10, -500, 10, 500, -10, 500)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="World" unique_id=99704447]
+navigation_polygon = SubResource("NavigationPolygon_terrain")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="World" unique_id=234567890]
 
@@ -123,7 +129,6 @@ grow_vertical = 2
 
 [node name="VictoryLabel" type="Label" parent="UI" unique_id=345678901]
 visible = false
-layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -133,6 +138,8 @@ offset_left = -250.0
 offset_top = -25.0
 offset_right = 250.0
 offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_font_sizes/font_size = 24
