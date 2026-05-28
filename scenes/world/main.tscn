@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmainscenetsc"]
+[gd_scene load_steps=6 format=3 uid="uid://bmainscenetsc"]
 
 [ext_resource type="Script" uid="uid://bmaingdscript1" path="res://scenes/world/main.gd" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://bplayertscn01" path="res://scenes/characters/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://bhuihudisc01" path="res://scenes/ui/hud/hud.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://bhuishoptscn1" path="res://scenes/ui/shop/shop.tscn" id="4_shop"]
+[ext_resource type="PackedScene" uid="uid://fencescene1" path="res://scenes/objects/cabin/fence.tscn" id="5_fence"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_main")
@@ -14,11 +15,20 @@ script = ExtResource("1_main")
 color = Color(0.18, 0.52, 0.18, 1)
 polygon = PackedVector2Array(-800, -500, 800, -500, 800, 500, -800, 500)
 
+[node name="Cabin" type="Node2D" parent="World"]
+
+[node name="CabinBuilding" type="Polygon2D" parent="World/Cabin"]
+color = Color(0.55, 0.35, 0.15, 1.0)
+polygon = PackedVector2Array(-40, -30, 40, -30, 40, 30, -40, 30)
+
+[node name="CabinFence" parent="World/Cabin" instance=ExtResource("5_fence")]
+
 [node name="Trees" type="Node2D" parent="World"]
 
 [node name="Zombies" type="Node2D" parent="World"]
 
 [node name="Player" parent="World" instance=ExtResource("2_player")]
+position = Vector2(0, 300)
 
 [node name="ZombieSpawnTimer" type="Timer" parent="."]
 wait_time = 8.0

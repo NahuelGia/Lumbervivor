@@ -12,6 +12,7 @@ const ZOMBIE_MIN_SPAWN_DISTANCE: float = 200.0
 @onready var player: Player = $World/Player
 @onready var trees_container: Node2D = $World/Trees
 @onready var zombies_container: Node2D = $World/Zombies
+@onready var cabin_fence: CabinFence = $World/Cabin/CabinFence
 @onready var hud: HUD = $UI/HUD
 @onready var shop: Shop = $UI/Shop
 @onready var zombie_spawn_timer: Timer = $ZombieSpawnTimer
@@ -21,6 +22,11 @@ func _ready() -> void:
 	_spawn_trees()
 	_spawn_zombies(INITIAL_ZOMBIE_COUNT)
 	zombie_spawn_timer.timeout.connect(_on_zombie_spawn_timer_timeout)
+	cabin_fence.destroyed.connect(_on_fence_destroyed)
+
+
+func _on_fence_destroyed() -> void:
+	get_tree().quit()
 
 
 func _process(_delta: float) -> void:
