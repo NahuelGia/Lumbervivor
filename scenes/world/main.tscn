@@ -14,6 +14,8 @@ script = ExtResource("1_main")
 color = Color(0.18, 0.52, 0.18, 1)
 polygon = PackedVector2Array(-800, -500, 800, -500, 800, 500, -800, 500)
 
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="World"]
+
 [node name="Trees" type="Node2D" parent="World"]
 
 [node name="Zombies" type="Node2D" parent="World"]

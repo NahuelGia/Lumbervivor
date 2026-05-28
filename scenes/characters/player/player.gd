@@ -3,9 +3,8 @@ extends CharacterBody2D
 
 const WOOD_PER_TREE: int = 6
 
-@export var move_speed: float = 150.0
+@export var move_speed: float = 250.0
 @export var max_health: int = 100
-@export var axe_damage: int = 25
 
 var current_health: int
 var wood: int = 0
