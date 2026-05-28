@@ -18,6 +18,8 @@ func _ready() -> void:
 	nav_agent.max_speed = move_speed
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	await get_tree().physics_frame
+	if not is_instance_valid(self):
+		return
 
 
 func _physics_process(_delta: float) -> void:
@@ -41,6 +43,8 @@ func _on_velocity_computed(safe_velocity: Vector2) -> void:
 
 	
 func take_damage(amount: int) -> void:
+	if current_health <= 0:
+		return
 	current_health -= amount
 	if current_health <= 0:
 		died.emit()

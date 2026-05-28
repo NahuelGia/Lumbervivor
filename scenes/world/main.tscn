@@ -76,6 +76,8 @@ polygon = PackedVector2Array(-10, -500, 10, -500, 10, 500, -10, 500)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="World" unique_id=99704447]
 
+[node name="CanvasModulate" type="CanvasModulate" parent="World" unique_id=234567890]
+
 [node name="Cabin" type="Node2D" parent="World" unique_id=1630842420]
 position = Vector2(-2, -614)
 metadata/_edit_group_ = true
@@ -105,6 +107,9 @@ position = Vector2(0, 300)
 
 [node name="ZombieSpawnTimer" type="Timer" parent="." unique_id=198100103]
 wait_time = 8.0
+
+[node name="DayNightTimer" type="Timer" parent="." unique_id=897654321]
+wait_time = 300.0
 autostart = true
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1224680545]
@@ -116,3 +121,19 @@ grow_vertical = 2
 [node name="Shop" parent="UI" unique_id=729894584 instance=ExtResource("4_shop")]
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VictoryLabel" type="Label" parent="UI" unique_id=345678901]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -25.0
+offset_right = 250.0
+offset_bottom = 25.0
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 24
