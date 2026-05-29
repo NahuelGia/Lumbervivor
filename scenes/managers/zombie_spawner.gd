@@ -63,8 +63,8 @@ func _spawn_one_zombie() -> void:
 	var zombie: Zombie = ZOMBIE_SCENE.instantiate()
 	zombie.position = _random_position_on_edge()
 	zombie.target = _cabin_fence if randf() < 0.7 else _player
-	zombie.setup_type(_pick_zombie_type(), _current_round)
 	_zombies_container.add_child(zombie)
+	zombie.setup_type(_pick_zombie_type(), _current_round)
 	zombie.died.connect(_on_zombie_died)
 	active_zombies += 1
 	zombies_spawned_this_night += 1
