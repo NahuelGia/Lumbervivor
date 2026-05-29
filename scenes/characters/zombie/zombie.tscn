@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bzombietscn01"]
+[gd_scene load_steps=4 format=3 uid="uid://bzombietscn01"]
 
 [ext_resource type="Script" uid="uid://bzombiegdscr1" path="res://scenes/characters/zombie/zombie.gd" id="1_zombie"]
+[ext_resource type="Script" uid="uid://healthcompgd01" path="res://scenes/components/health/health_component.gd" id="2_health"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 18.0
@@ -20,3 +21,12 @@ shape = SubResource("CircleShape2D_1")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
 radius = 18.0
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_health")
+max_health = 50
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = false
+autostart = false
