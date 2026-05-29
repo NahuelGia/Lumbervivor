@@ -35,6 +35,8 @@ func swing() -> void:
 func push_swing() -> void:
 	_is_push_mode = true
 	await swing()
+	if not is_instance_valid(self):
+		return
 	_is_push_mode = false
 
 

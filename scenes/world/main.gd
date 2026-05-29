@@ -25,9 +25,14 @@ func _ready() -> void:
 	zombie_spawner.all_zombies_cleared.connect(day_night_cycle.notify_zombies_cleared)
 	day_night_cycle.day_started.connect(_on_day_started)
 	cabin_fence.destroyed.connect(_on_fence_destroyed)
+	player.died.connect(_on_player_died)
 
 
 func _on_fence_destroyed() -> void:
+	get_tree().quit()
+
+
+func _on_player_died() -> void:
 	get_tree().quit()
 
 
