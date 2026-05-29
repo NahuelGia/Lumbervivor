@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 const WOOD_PER_TREE: int = 6
-const PUSH_FORCE: float = 500.0
+const PUSH_FORCE: float = 300.0
 const PUSH_DURATION: float = 0.3
 
 @export var move_speed: float = 250.0
@@ -15,7 +15,6 @@ signal died
 
 @onready var axe: Axe = $Axe
 @onready var health: HealthComponent = $HealthComponent
-@onready var push_area: Area2D = $PushArea
 
 
 func _ready() -> void:
@@ -23,6 +22,7 @@ func _ready() -> void:
 	health.died.connect(died.emit)
 	health_changed.emit(health.current_health, health.max_health)
 	axe.hit_zombie.connect(_on_axe_hit_zombie)
+	axe.hit_zombie_push.connect(_on_axe_hit_zombie_push)
 	axe.hit_tree.connect(_on_axe_hit_tree)
 
 
@@ -49,16 +49,8 @@ func _handle_attack() -> void:
 
 
 func _handle_push() -> void:
-	if not Input.is_action_just_pressed("push"):
-		return
-	for body in push_area.get_overlapping_bodies():
-		if body is Zombie:
-			var dir := body.global_position - global_position
-			if dir.is_zero_approx():
-				dir = Vector2.RIGHT
-			else:
-				dir = dir.normalized()
-			body.apply_knockback(dir * PUSH_FORCE, PUSH_DURATION)
+	if Input.is_action_just_pressed("push"):
+		axe.push_swing()
 
 
 func take_damage(amount: int) -> void:
@@ -71,6 +63,15 @@ func restore_health() -> void:
 
 func _on_axe_hit_zombie(zombie: Zombie) -> void:
 	zombie.take_damage(axe.damage)
+
+
+func _on_axe_hit_zombie_push(zombie: Zombie) -> void:
+	var dir := zombie.global_position - global_position
+	if dir.is_zero_approx():
+		dir = Vector2.RIGHT
+	else:
+		dir = dir.normalized()
+	zombie.apply_knockback(dir * PUSH_FORCE, PUSH_DURATION)
 
 
 func _on_axe_hit_tree(tree: ChoppableTree) -> void:
