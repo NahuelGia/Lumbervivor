@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://craftingtscn01"]
+
+[ext_resource type="Script" uid="uid://craftinggdscr01" path="res://scenes/ui/crafting/crafting.gd" id="1_crafting"]
+
+[node name="CraftingBench" type="Control" unique_id=500000001]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -115.0
+offset_right = 200.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_crafting")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=500000002]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=500000003]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=500000004]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000005]
+layout_mode = 2
+text = "Banco de Trabajo  (B para cerrar)"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000006]
+layout_mode = 2
+
+[node name="AxeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000007]
+layout_mode = 2
+text = "Hacha mejorada  +15 daño  —  8 madera"
+
+[node name="ArmorButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000008]
+layout_mode = 2
+text = "Armadura de madera  +30 HP máx.  —  10 madera"
+
+[node name="BarricadeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000009]
+layout_mode = 2
+text = "Barricada de madera  +100 HP reja  —  6 madera"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/AxeButton" to="." method="_on_axe_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ArmorButton" to="." method="_on_armor_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/BarricadeButton" to="." method="_on_barricade_button_pressed"]

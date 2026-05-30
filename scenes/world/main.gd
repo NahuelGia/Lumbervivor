@@ -10,7 +10,7 @@ const INITIAL_TREE_COUNT: int = 15
 @onready var cabin_fence: CabinFence = $World/Cabin/CabinFence
 @onready var canvas_modulate: CanvasModulate = $World/CanvasModulate
 @onready var hud: HUD = $UI/HUD
-@onready var shop: Shop = $UI/Shop
+@onready var crafting_bench: CraftingBench = $UI/CraftingBench
 @onready var victory_label: Label = $UI/VictoryLabel
 @onready var day_night_cycle: DayNightCycle = $DayNightCycle
 @onready var zombie_spawner: ZombieSpawner = $ZombieSpawner
@@ -20,12 +20,34 @@ func _ready() -> void:
 	_spawn_trees()
 	zombie_spawner.setup(player, cabin_fence, zombies_container, TERRAIN_HALF)
 	day_night_cycle.setup(canvas_modulate, victory_label, zombie_spawner)
+	crafting_bench.setup(player, cabin_fence)
+
+	# Señales de ciclo día/noche
 	day_night_cycle.night_started.connect(zombie_spawner.begin_night)
 	day_night_cycle.night_sweep_started.connect(zombie_spawner.stop_spawning)
 	zombie_spawner.all_zombies_cleared.connect(day_night_cycle.notify_zombies_cleared)
 	day_night_cycle.day_started.connect(_on_day_started)
+
+	# HUD
+	player.health_changed.connect(hud.update_health)
+	player.wood_changed.connect(hud.update_wood)
+	cabin_fence.health_changed.connect(hud.update_fence)
+	day_night_cycle.day_started.connect(hud.on_day_started)
+	day_night_cycle.night_started.connect(hud.on_night_started)
+
+	# CraftingBench: habilitar de día, deshabilitar de noche
+	day_night_cycle.day_started.connect(crafting_bench.enable)
+	day_night_cycle.night_started.connect(crafting_bench.disable)
+
+	# Game Over
 	cabin_fence.destroyed.connect(_on_fence_destroyed)
 	player.died.connect(_on_player_died)
+
+	# Inicializar HUD con valores actuales
+	hud.update_health(player.health.current_health, player.health.max_health)
+	hud.update_wood(player.wood)
+	hud.update_fence(cabin_fence.health.current_health, cabin_fence.health.max_health)
+	hud.on_day_started(day_night_cycle.current_round)
 
 
 func _on_fence_destroyed() -> void:

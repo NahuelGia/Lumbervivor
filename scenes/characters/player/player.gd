@@ -61,6 +61,23 @@ func restore_health() -> void:
 	health.restore()
 
 
+func spend_wood(amount: int) -> bool:
+	if wood < amount:
+		return false
+	wood -= amount
+	wood_changed.emit(wood)
+	return true
+
+
+func upgrade_axe(damage_bonus: int) -> void:
+	axe.damage += damage_bonus
+
+
+func upgrade_armor(health_bonus: int) -> void:
+	health.max_health += health_bonus
+	health_changed.emit(health.current_health, health.max_health)
+
+
 func _on_axe_hit_zombie(zombie: Zombie) -> void:
 	zombie.take_damage(axe.damage)
 
