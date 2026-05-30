@@ -2,6 +2,7 @@ class_name Axe
 extends Area2D
 
 signal hit_zombie(zombie: Zombie)
+signal hit_zombie_push(zombie: Zombie)
 signal hit_tree(tree: ChoppableTree)
 
 @export var damage: int = 25
@@ -9,6 +10,7 @@ signal hit_tree(tree: ChoppableTree)
 @export var attack_cooldown: float = 0.5
 
 var _is_on_cooldown: bool = false
+var _is_push_mode: bool = false
 var _hit_targets: Array[Node2D] = []
 
 
@@ -30,6 +32,14 @@ func swing() -> void:
 	_is_on_cooldown = false
 
 
+func push_swing() -> void:
+	_is_push_mode = true
+	await swing()
+	if not is_instance_valid(self):
+		return
+	_is_push_mode = false
+
+
 func _play_swing_animation() -> void:
 	rotation_degrees = 50.0
 	var tween := create_tween()
@@ -42,6 +52,9 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	_hit_targets.append(body)
 	if body is Zombie:
-		hit_zombie.emit(body)
-	elif body is ChoppableTree:
+		if _is_push_mode:
+			hit_zombie_push.emit(body)
+		else:
+			hit_zombie.emit(body)
+	elif body is ChoppableTree and not _is_push_mode:
 		hit_tree.emit(body)
