@@ -43,11 +43,12 @@ func _ready() -> void:
 	cabin_fence.destroyed.connect(_on_fence_destroyed)
 	player.died.connect(_on_player_died)
 
-	# Inicializar HUD con valores actuales
+	# Inicializar HUD y bench con valores actuales
 	hud.update_health(player.health.current_health, player.health.max_health)
 	hud.update_wood(player.wood)
 	hud.update_fence(cabin_fence.health.current_health, cabin_fence.health.max_health)
 	hud.on_day_started(day_night_cycle.current_round)
+	crafting_bench.enable(day_night_cycle.current_round)
 
 
 func _on_fence_destroyed() -> void:

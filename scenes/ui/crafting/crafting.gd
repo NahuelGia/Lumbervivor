@@ -8,6 +8,7 @@ const COST_BARRICADE: int = 6
 var _player: Player
 var _fence: CabinFence
 var _is_day: bool = true
+var _bench_paused: bool = false
 var _axe_bought: bool = false
 var _armor_bought: bool = false
 var _barricade_bought: bool = false
@@ -15,6 +16,13 @@ var _barricade_bought: bool = false
 @onready var axe_button: Button = $PanelContainer/MarginContainer/VBoxContainer/AxeButton
 @onready var armor_button: Button = $PanelContainer/MarginContainer/VBoxContainer/ArmorButton
 @onready var barricade_button: Button = $PanelContainer/MarginContainer/VBoxContainer/BarricadeButton
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	axe_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	armor_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	barricade_button.process_mode = Node.PROCESS_MODE_ALWAYS
 
 
 func setup(player: Player, fence: CabinFence) -> void:
@@ -29,14 +37,32 @@ func enable(_round: int) -> void:
 
 func disable(_round: int) -> void:
 	_is_day = false
-	visible = false
+	if visible:
+		_close()
+	else:
+		visible = false
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_bench") and _is_day:
-		visible = not visible
 		if visible:
-			_update_buttons()
+			_close()
+		else:
+			_open()
+
+
+func _open() -> void:
+	visible = true
+	_bench_paused = true
+	get_tree().paused = true
+	_update_buttons()
+
+
+func _close() -> void:
+	visible = false
+	if _bench_paused:
+		_bench_paused = false
+		get_tree().paused = false
 
 
 func _on_wood_changed(_amount: int) -> void:
@@ -76,6 +102,8 @@ func _on_armor_button_pressed() -> void:
 
 func _on_barricade_button_pressed() -> void:
 	if _barricade_bought or not _player.spend_wood(COST_BARRICADE):
+		return
+	if not is_instance_valid(_fence):
 		return
 	_fence.repair(100)
 	_barricade_bought = true

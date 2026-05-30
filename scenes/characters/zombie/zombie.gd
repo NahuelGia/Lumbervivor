@@ -26,7 +26,6 @@ func _ready() -> void:
 	health.died.connect(_on_health_died)
 	nav_agent.max_speed = move_speed
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
-	_apply_type_color()
 	attack_timer.wait_time = ATTACK_INTERVAL
 	attack_timer.one_shot = false
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
