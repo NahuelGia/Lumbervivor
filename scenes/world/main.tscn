@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bplayertscn01" path="res://scenes/characters/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://bhuihudisc01" path="res://scenes/ui/hud/hud.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://craftingtscn01" path="res://scenes/ui/crafting/crafting.tscn" id="4_crafting"]
+[ext_resource type="PackedScene" uid="uid://gameovertscn01" path="res://scenes/ui/game_over/game_over.tscn" id="4_game_over"]
 [ext_resource type="PackedScene" uid="uid://fencescene1" path="res://scenes/objects/cabin/fence.tscn" id="5_fence"]
 [ext_resource type="PackedScene" uid="uid://bq3wn3jqbhtku" path="res://scenes/managers/zombie_spawner.tscn" id="6_zombie_spawner"]
 [ext_resource type="PackedScene" uid="uid://cukj82l2f7l7a" path="res://scenes/managers/day_night_cycle.tscn" id="7_day_night_cycle"]
@@ -124,6 +125,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CraftingBench" parent="UI" unique_id=729894584 instance=ExtResource("4_crafting")]
+
+[node name="GameOverScreen" parent="UI" unique_id=700000001 instance=ExtResource("4_game_over")]
 
 [node name="VictoryLabel" type="Label" parent="UI" unique_id=345678901]
 visible = false
