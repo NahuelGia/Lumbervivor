@@ -12,7 +12,7 @@ script = ExtResource("1_hud")
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1171220375]
 layout_mode = 0
 offset_right = 220.0
-offset_bottom = 80.0
+offset_bottom = 145.0
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 
@@ -21,8 +21,20 @@ layout_mode = 2
 
 [node name="HealthLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=426589923]
 layout_mode = 2
-text = "Health: 100 / 100"
+text = "Vida: 100 / 100"
+
+[node name="FenceLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1400000003]
+layout_mode = 2
+text = "Reja: 200 / 200"
 
 [node name="WoodLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1294173381]
 layout_mode = 2
-text = "Wood: 0"
+text = "Madera: 0"
+
+[node name="RoundLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1400000001]
+layout_mode = 2
+text = "Ronda: 1"
+
+[node name="PhaseLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1400000002]
+layout_mode = 2
+text = "Fase: DÍA"
