@@ -11,6 +11,7 @@ const INITIAL_TREE_COUNT: int = 15
 @onready var canvas_modulate: CanvasModulate = $World/CanvasModulate
 @onready var hud: HUD = $UI/HUD
 @onready var crafting_bench: CraftingBench = $UI/CraftingBench
+@onready var game_over_screen: GameOverScreen = $UI/GameOverScreen
 @onready var victory_label: Label = $UI/VictoryLabel
 @onready var day_night_cycle: DayNightCycle = $DayNightCycle
 @onready var zombie_spawner: ZombieSpawner = $ZombieSpawner
@@ -52,11 +53,13 @@ func _ready() -> void:
 
 
 func _on_fence_destroyed() -> void:
-	get_tree().quit()
+	crafting_bench.disable(0)
+	game_over_screen.show_game_over("La reja de la cabaña fue destruida.")
 
 
 func _on_player_died() -> void:
-	get_tree().quit()
+	crafting_bench.disable(0)
+	game_over_screen.show_game_over("El leñador no sobrevivió.")
 
 
 func _on_day_started(_round: int) -> void:
