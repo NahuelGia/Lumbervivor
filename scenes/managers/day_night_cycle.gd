@@ -72,9 +72,12 @@ func _begin_night() -> void:
 
 func _end_night() -> void:
 	_ending_night = true
+	day_night_timer.stop()
 	_victory_label.text = "Sobreviviste la noche %d" % current_round
 	_victory_label.visible = true
 	await get_tree().create_timer(VICTORY_DISPLAY_DURATION).timeout
+	if not is_instance_valid(self):
+		return
 	_ending_night = false
 	_victory_label.visible = false
 	phase = Phase.DAY
