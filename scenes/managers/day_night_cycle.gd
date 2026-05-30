@@ -11,6 +11,7 @@ const VICTORY_DISPLAY_DURATION: float = 2.5
 var phase: Phase = Phase.DAY
 var current_round: int = 1
 var night_ending: bool = false
+var _ending_night: bool = false
 
 signal night_started(round: int)
 signal night_sweep_started()
@@ -31,7 +32,7 @@ func setup(canvas_mod: CanvasModulate, v_label: Label, spawner: ZombieSpawner) -
 
 
 func notify_zombies_cleared() -> void:
-	if night_ending:
+	if night_ending and not _ending_night:
 		night_ending = false
 		_end_night()
 
@@ -44,7 +45,8 @@ func _on_day_night_timer_timeout() -> void:
 		night_sweep_started.emit()
 		if not _zombie_spawner.has_active_zombies():
 			night_ending = false
-			_end_night()
+			if not _ending_night:
+				_end_night()
 
 
 func debug_skip() -> void:
@@ -56,7 +58,8 @@ func debug_skip() -> void:
 		print("[DEBUG] Saltando a DÍA (ronda %d)" % (current_round + 1))
 		night_ending = false
 		_zombie_spawner.debug_clear_all()
-		_end_night()
+		if not _ending_night:
+			_end_night()
 
 
 func _begin_night() -> void:
@@ -68,9 +71,14 @@ func _begin_night() -> void:
 
 
 func _end_night() -> void:
+	_ending_night = true
+	day_night_timer.stop()
 	_victory_label.text = "Sobreviviste la noche %d" % current_round
 	_victory_label.visible = true
 	await get_tree().create_timer(VICTORY_DISPLAY_DURATION).timeout
+	if not is_instance_valid(self):
+		return
+	_ending_night = false
 	_victory_label.visible = false
 	phase = Phase.DAY
 	current_round += 1

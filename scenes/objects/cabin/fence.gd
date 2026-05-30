@@ -1,21 +1,25 @@
 class_name CabinFence
 extends StaticBody2D
 
-@export var max_health: int = 200
-
-var current_health: int
-
 signal destroyed
+signal health_changed(current: int, max_val: int)
+
+@onready var health: HealthComponent = $HealthComponent
 
 
 func _ready() -> void:
-	current_health = max_health
+	health.health_changed.connect(health_changed.emit)
+	health.died.connect(_on_health_died)
 
 
 func take_damage(amount: int) -> void:
-	if current_health <= 0:
-		return
-	current_health -= amount
-	if current_health <= 0:
-		destroyed.emit()
-		queue_free()
+	health.take_damage(amount)
+
+
+func repair(amount: int) -> void:
+	health.repair(amount)
+
+
+func _on_health_died() -> void:
+	destroyed.emit()
+	queue_free()
