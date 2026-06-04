@@ -88,6 +88,8 @@ func _physics_process(delta: float) -> void:
 
 	nav_agent.target_position = target.global_position
 	if nav_agent.is_navigation_finished():
+		velocity = (target.global_position - global_position).normalized() * move_speed
+		move_and_slide()
 		return
 	var next_pos := nav_agent.get_next_path_position()
 	var desired_velocity := (next_pos - global_position).normalized() * move_speed

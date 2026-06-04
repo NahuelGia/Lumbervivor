@@ -7,6 +7,13 @@ const DAY_COLOR := Color(1.0, 1.0, 1.0, 1.0)
 const NIGHT_COLOR := Color(0.3, 0.3, 0.5, 1.0)
 const TRANSITION_DURATION: float = 3.0
 const VICTORY_DISPLAY_DURATION: float = 2.5
+const DAY_DURATION: float = 90.0
+const NIGHT_DURATION: float = 120.0
+
+# Background clear color (must match project.godot default_clear_color)
+const DAY_BG_COLOR := Color(0.12, 0.38, 0.12, 1.0)
+# Same darkening ratio as NIGHT_COLOR applied to the canvas (×0.3 R/G, ×0.5 B)
+const NIGHT_BG_COLOR := Color(0.12 * 0.3, 0.38 * 0.3, 0.12 * 0.5, 1.0)
 
 var phase: Phase = Phase.DAY
 var current_round: int = 1
@@ -62,12 +69,18 @@ func debug_skip() -> void:
 			_end_night()
 
 
+func _set_bg_color(color: Color) -> void:
+	RenderingServer.set_default_clear_color(color)
+
+
 func _begin_night() -> void:
 	phase = Phase.NIGHT
+	day_night_timer.wait_time = NIGHT_DURATION
 	day_night_timer.start()
 	night_started.emit(current_round)
-	var tween := create_tween()
+	var tween := create_tween().set_parallel(true)
 	tween.tween_property(_canvas_modulate, "color", NIGHT_COLOR, TRANSITION_DURATION)
+	tween.tween_method(_set_bg_color, DAY_BG_COLOR, NIGHT_BG_COLOR, TRANSITION_DURATION)
 
 
 func _end_night() -> void:
@@ -82,7 +95,9 @@ func _end_night() -> void:
 	_victory_label.visible = false
 	phase = Phase.DAY
 	current_round += 1
+	day_night_timer.wait_time = DAY_DURATION
 	day_night_timer.start()
-	var tween := create_tween()
+	var tween := create_tween().set_parallel(true)
 	tween.tween_property(_canvas_modulate, "color", DAY_COLOR, TRANSITION_DURATION)
+	tween.tween_method(_set_bg_color, NIGHT_BG_COLOR, DAY_BG_COLOR, TRANSITION_DURATION)
 	day_started.emit(current_round)

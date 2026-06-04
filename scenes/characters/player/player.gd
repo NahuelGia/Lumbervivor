@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-const WOOD_PER_TREE: int = 6
+const WOOD_PER_TREE: int = 5
 const PUSH_FORCE: float = 300.0
 const PUSH_DURATION: float = 0.3
 
