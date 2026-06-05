@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://btreeobjtscn1"]
+
+[ext_resource type="Script" uid="uid://d2r1v1ypujxfn" path="res://scenes/objects/tree/tree.gd" id="1_tree"]
+[ext_resource type="Script" uid="uid://4k0bneq33ft6" path="res://scenes/components/health/health_component.gd" id="2_health"]
+[ext_resource type="Script" uid="uid://healthbargd001" path="res://scenes/components/health_bar/health_bar.gd" id="3_health_bar"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 22.0
+
+[node name="Tree" type="StaticBody2D" unique_id=80059053]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_tree")
+
+[node name="Visual" type="Polygon2D" parent="." unique_id=399885347]
+color = Color(0.1, 0.6, 0.1, 1)
+polygon = PackedVector2Array(0, -28, 24, 20, -24, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=732091627]
+shape = SubResource("CircleShape2D_1")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=579088448]
+script = ExtResource("2_health")
+
+[node name="HealthBar" type="Node2D" parent="."]
+position = Vector2(0, 30)
+script = ExtResource("3_health_bar")

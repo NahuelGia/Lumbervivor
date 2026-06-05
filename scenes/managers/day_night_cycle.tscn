@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://daynightcycletscn1"]
+
+[ext_resource type="Script" uid="uid://daynightcyclegdsc1" path="res://scenes/managers/day_night_cycle.gd" id="1_dnc"]
+
+[node name="DayNightCycle" type="Node"]
+script = ExtResource("1_dnc")
+
+[node name="DayNightTimer" type="Timer" parent="."]
+wait_time = 90.0
+autostart = true
