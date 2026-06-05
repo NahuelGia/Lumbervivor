@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://0lhxnoaofq78" path="res://scenes/world/main.gd" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://bplayertscn01" path="res://scenes/characters/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://bhuihudisc01" path="res://scenes/ui/hud/hud.tscn" id="3_hud"]
-[ext_resource type="PackedScene" uid="uid://craftingtscn01" path="res://scenes/ui/crafting/crafting.tscn" id="4_crafting"]
-[ext_resource type="PackedScene" uid="uid://gameovertscn01" path="res://scenes/ui/game_over/game_over.tscn" id="4_game_over"]
+[ext_resource type="PackedScene" uid="uid://d3uj4g5jw3a3y" path="res://scenes/ui/crafting/crafting.tscn" id="4_crafting"]
+[ext_resource type="PackedScene" uid="uid://dm6f7gyqfs5ma" path="res://scenes/ui/game_over/game_over.tscn" id="4_game_over"]
 [ext_resource type="PackedScene" uid="uid://fencescene1" path="res://scenes/objects/cabin/fence.tscn" id="5_fence"]
 [ext_resource type="PackedScene" uid="uid://bq3wn3jqbhtku" path="res://scenes/managers/zombie_spawner.tscn" id="6_zombie_spawner"]
 [ext_resource type="PackedScene" uid="uid://cukj82l2f7l7a" path="res://scenes/managers/day_night_cycle.tscn" id="7_day_night_cycle"]
@@ -89,7 +89,6 @@ navigation_polygon = SubResource("NavigationPolygon_terrain")
 
 [node name="Cabin" type="Node2D" parent="World" unique_id=1630842420]
 position = Vector2(-2, -614)
-metadata/_edit_group_ = true
 
 [node name="CabinBuilding" type="StaticBody2D" parent="World/Cabin" unique_id=1725011347]
 scale = Vector2(2, 2)
@@ -105,7 +104,7 @@ color = Color(0.55, 0.35, 0.15, 1)
 polygon = PackedVector2Array(-40, -40, 40, -40, 40, 40, -40, 40)
 
 [node name="CabinFence" parent="World/Cabin" unique_id=1996444647 instance=ExtResource("5_fence")]
-position = Vector2(3, 113)
+position = Vector2(4, 134)
 
 [node name="Trees" type="Node2D" parent="World" unique_id=2140820108]
 
@@ -125,8 +124,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CraftingBench" parent="UI" unique_id=729894584 instance=ExtResource("4_crafting")]
+layout_mode = 3
 
 [node name="GameOverScreen" parent="UI" unique_id=700000001 instance=ExtResource("4_game_over")]
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VictoryLabel" type="Label" parent="UI" unique_id=345678901]
 visible = false

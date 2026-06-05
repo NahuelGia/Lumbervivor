@@ -79,6 +79,7 @@ func upgrade_armor(health_bonus: int) -> void:
 
 
 func _on_axe_hit_zombie(zombie: Zombie) -> void:
+	print("Hit - Zombie")
 	zombie.take_damage(axe.damage)
 
 

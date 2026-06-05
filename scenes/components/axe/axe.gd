@@ -5,7 +5,7 @@ signal hit_zombie(zombie: Zombie)
 signal hit_zombie_push(zombie: Zombie)
 signal hit_tree(tree: ChoppableTree)
 
-@export var damage: int = 10
+@export var damage: int = 20
 @export var swing_duration: float = 0.25
 @export var attack_cooldown: float = 0.5
 

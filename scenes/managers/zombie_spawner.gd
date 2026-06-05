@@ -2,13 +2,11 @@ class_name ZombieSpawner
 extends Node
 
 const ZOMBIE_SCENE := preload("res://scenes/characters/zombie/zombie.tscn")
-const ZOMBIE_SPAWN_BASE_INTERVAL: float = 8.0
+const ZOMBIE_SPAWN_BASE_INTERVAL: float = 4.0
 const ZOMBIE_SPAWN_MIN_INTERVAL: float = 2.0
 const MAX_CONCURRENT_ZOMBIES: int = 15
 
 var active_zombies: int = 0
-var zombies_spawned_this_night: int = 0
-var night_zombie_quota: int = 0
 var _night_ending: bool = false
 var _terrain_half: Vector2
 var _current_round: int = 1
@@ -34,8 +32,6 @@ func begin_night(round: int) -> void:
 	_current_round = round
 	_night_ending = false
 	active_zombies = 0
-	night_zombie_quota = 10 + (round - 1) * 2
-	zombies_spawned_this_night = 0
 	zombie_spawn_timer.wait_time = maxf(ZOMBIE_SPAWN_MIN_INTERVAL, ZOMBIE_SPAWN_BASE_INTERVAL - (round - 1) * 0.5)
 	zombie_spawn_timer.start()
 
@@ -52,9 +48,6 @@ func has_active_zombies() -> bool:
 
 
 func _on_zombie_spawn_timer_timeout() -> void:
-	if zombies_spawned_this_night >= night_zombie_quota:
-		zombie_spawn_timer.stop()
-		return
 	if active_zombies >= MAX_CONCURRENT_ZOMBIES:
 		return
 	_spawn_one_zombie()
@@ -69,7 +62,6 @@ func _spawn_one_zombie() -> void:
 	zombie.died.connect(_on_zombie_died)
 	zombie.setup_type(_pick_zombie_type(), _current_round)
 	active_zombies += 1
-	zombies_spawned_this_night += 1
 
 
 func _pick_zombie_type() -> Zombie.ZombieType:
