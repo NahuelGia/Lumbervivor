@@ -4,7 +4,7 @@ extends CharacterBody2D
 enum ZombieType { NORMAL, RUNNER, TANK }
 
 const ATTACK_RANGE: float = 45.0
-const ATTACK_INTERVAL: float = 1.5
+const ATTACK_INTERVAL: float = 1.0
 
 var move_speed: float = 75.0
 var attack_damage: int = 10
@@ -20,10 +20,12 @@ signal died
 @onready var visual: Polygon2D = $Visual
 @onready var health: HealthComponent = $HealthComponent
 @onready var attack_timer: Timer = $AttackTimer
+@onready var health_bar: HealthBar = $HealthBar
 
 
 func _ready() -> void:
 	health.died.connect(_on_health_died)
+	health.health_changed.connect(health_bar.update_health)
 	nav_agent.max_speed = move_speed
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	attack_timer.wait_time = ATTACK_INTERVAL
@@ -88,6 +90,8 @@ func _physics_process(delta: float) -> void:
 
 	nav_agent.target_position = target.global_position
 	if nav_agent.is_navigation_finished():
+		velocity = (target.global_position - global_position).normalized() * move_speed
+		move_and_slide()
 		return
 	var next_pos := nav_agent.get_next_path_position()
 	var desired_velocity := (next_pos - global_position).normalized() * move_speed

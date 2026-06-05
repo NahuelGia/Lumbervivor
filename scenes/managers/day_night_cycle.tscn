@@ -6,5 +6,5 @@
 script = ExtResource("1_dnc")
 
 [node name="DayNightTimer" type="Timer" parent="."]
-wait_time = 300.0
+wait_time = 90.0
 autostart = true
