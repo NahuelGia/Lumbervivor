@@ -1,9 +1,9 @@
 class_name CraftingBench
 extends Control
 
-const COST_AXE: int = 8
-const COST_ARMOR: int = 10
-const COST_BARRICADE: int = 6
+const COST_AXE: int = 100
+const COST_ARMOR: int = 50
+const COST_BARRICADE: int = 30
 
 var _player: Player
 var _fence: CabinFence
