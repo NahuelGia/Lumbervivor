@@ -4,9 +4,11 @@ extends Control
 const COST_AXE: int = 100
 const COST_ARMOR: int = 50
 const COST_BARRICADE: int = 30
+const BENCH_PROXIMITY: float = 160.0
 
 var _player: Player
 var _fence: CabinFence
+var _bench_marker: StaticBody2D
 var _is_day: bool = true
 var _bench_paused: bool = false
 var _axe_bought: bool = false
@@ -25,9 +27,10 @@ func _ready() -> void:
 	barricade_button.process_mode = Node.PROCESS_MODE_ALWAYS
 
 
-func setup(player: Player, fence: CabinFence) -> void:
+func setup(player: Player, fence: CabinFence, bench_marker: StaticBody2D) -> void:
 	_player = player
 	_fence = fence
+	_bench_marker = bench_marker
 	player.wood_changed.connect(_on_wood_changed)
 
 
@@ -43,11 +46,18 @@ func disable(_round: int) -> void:
 		visible = false
 
 
+func _near_bench() -> bool:
+	if is_instance_valid(_bench_marker):
+		return _player.global_position.distance_to(_bench_marker.global_position) <= BENCH_PROXIMITY
+	return is_instance_valid(_fence) and \
+		_player.global_position.distance_to(_fence.global_position) <= BENCH_PROXIMITY
+
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_bench") and _is_day:
 		if visible:
 			_close()
-		else:
+		elif _near_bench():
 			_open()
 
 
