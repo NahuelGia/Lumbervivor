@@ -23,6 +23,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-750, -450, 750, -450, 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cabin"]
 size = Vector2(80, 80)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bench"]
+size = Vector2(40, 40)
+
 [node name="Main" type="Node2D" unique_id=423251905]
 script = ExtResource("1_main")
 
@@ -106,12 +109,32 @@ polygon = PackedVector2Array(-40, -40, 40, -40, 40, 40, -40, 40)
 [node name="CabinFence" parent="World/Cabin" unique_id=1996444647 instance=ExtResource("5_fence")]
 position = Vector2(4, 134)
 
+[node name="CraftingBenchMarker" type="StaticBody2D" parent="World/Cabin" unique_id=1996444648]
+position = Vector2(158, 134)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Cabin/CraftingBenchMarker" unique_id=1996444651]
+shape = SubResource("RectangleShape2D_bench")
+
+[node name="Visual" type="Polygon2D" parent="World/Cabin/CraftingBenchMarker" unique_id=1996444649]
+color = Color(0.6, 0.4, 0.1, 1)
+polygon = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+
+[node name="Label" type="Label" parent="World/Cabin/CraftingBenchMarker" unique_id=1996444650]
+offset_left = -30.0
+offset_top = -38.0
+offset_right = -30.0
+offset_bottom = -38.0
+theme_override_font_sizes/font_size = 12
+text = "[B] Tienda"
+
 [node name="Trees" type="Node2D" parent="World" unique_id=2140820108]
 
 [node name="Zombies" type="Node2D" parent="World" unique_id=1287345814]
 
 [node name="Player" parent="World" unique_id=1748240203 instance=ExtResource("2_player")]
-position = Vector2(0, 300)
+position = Vector2(-7, 284)
 
 [node name="ZombieSpawner" parent="." unique_id=300000001 instance=ExtResource("6_zombie_spawner")]
 
@@ -120,15 +143,11 @@ position = Vector2(0, 300)
 [node name="UI" type="CanvasLayer" parent="." unique_id=1224680545]
 
 [node name="HUD" parent="UI" unique_id=171955648 instance=ExtResource("3_hud")]
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="CraftingBench" parent="UI" unique_id=729894584 instance=ExtResource("4_crafting")]
 layout_mode = 3
 
 [node name="GameOverScreen" parent="UI" unique_id=700000001 instance=ExtResource("4_game_over")]
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="VictoryLabel" type="Label" parent="UI" unique_id=345678901]
 visible = false
