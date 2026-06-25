@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bvictoryscene01"]
+
+[ext_resource type="Script" uid="uid://bvictoryscenegds1" path="res://scenes/ui/victory/victory_screen.gd" id="1_victory"]
+
+[node name="VictoryScreen" type="Control" unique_id=710000001]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_victory")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=710000002]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=710000003]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -110.0
+offset_right = 220.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=710000004]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=710000005]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=710000006]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "¡SOBREVIVISTE!"
+horizontal_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=710000007]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "El helicóptero de rescate llegó.\nSobreviviste 5 noches en el bosque."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="RestartButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=710000008]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Jugar de nuevo"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

@@ -4,18 +4,20 @@ const TREE_SCENE := preload("res://scenes/objects/tree/tree.tscn")
 const TERRAIN_HALF := Vector2(750.0, 450.0)
 const INITIAL_TREE_COUNT: int = 15
 
-@onready var player: Player = $World/Player
-@onready var trees_container: Node2D = $World/Trees
-@onready var zombies_container: Node2D = $World/Zombies
+@onready var player: Player = %Player
+@onready var trees_container: Node2D = %Trees
+@onready var zombies_container: Node2D = %Zombies
 @onready var cabin_fence: CabinFence = $World/Cabin/CabinFence
 @onready var bench_marker: Node2D = $World/Cabin/CraftingBenchMarker
 @onready var canvas_modulate: CanvasModulate = $World/CanvasModulate
 @onready var hud: HUD = $UI/HUD
 @onready var crafting_bench: CraftingBench = $UI/CraftingBench
 @onready var game_over_screen: GameOverScreen = $UI/GameOverScreen
+@onready var victory_screen: VictoryScreen = $UI/VictoryScreen
 @onready var victory_label: Label = $UI/VictoryLabel
 @onready var day_night_cycle: DayNightCycle = $DayNightCycle
 @onready var zombie_spawner: ZombieSpawner = $ZombieSpawner
+
 
 
 func _ready() -> void:
@@ -63,7 +65,12 @@ func _on_player_died() -> void:
 	game_over_screen.show_game_over("El leñador no sobrevivió.")
 
 
-func _on_day_started(_round: int) -> void:
+const WIN_ROUNDS: int = 5
+
+func _on_day_started(round: int) -> void:
+	if round > WIN_ROUNDS:
+		victory_screen.show_victory()
+		return
 	player.restore_health()
 	_spawn_trees()
 
