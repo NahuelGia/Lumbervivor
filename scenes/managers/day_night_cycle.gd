@@ -3,6 +3,12 @@ extends Node
 
 enum Phase { DAY, NIGHT }
 
+const WIN_ROUNDS: int = 5
+
+const FOREST_VOLUME_DAY: float = -10.0
+const FOREST_VOLUME_NIGHT: float = -80.0
+const NIGHT_AMBIENT_VOLUME: float = -10.0
+
 const DAY_COLOR := Color(1.0, 1.0, 1.0, 1.0)
 const NIGHT_COLOR := Color(0.3, 0.3, 0.5, 1.0)
 const TRANSITION_DURATION: float = 3.0
@@ -25,7 +31,11 @@ signal night_sweep_started()
 signal day_started(round: int)
 
 @onready var day_night_timer: Timer = $DayNightTimer
+@onready var forest_player: AudioStreamPlayer = $ForestPlayer
+@onready var night_player: AudioStreamPlayer = $NightPlayer
+@onready var heli_player: AudioStreamPlayer = $HeliPlayer
 
+var _heli_tween: Tween
 var _canvas_modulate: CanvasModulate
 var _victory_label: Label
 var _zombie_spawner: ZombieSpawner
@@ -36,6 +46,16 @@ func setup(canvas_mod: CanvasModulate, v_label: Label, spawner: ZombieSpawner) -
 	_victory_label = v_label
 	_zombie_spawner = spawner
 	day_night_timer.timeout.connect(_on_day_night_timer_timeout)
+	var forest_stream := forest_player.stream.duplicate() as AudioStreamWAV
+	forest_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	forest_player.stream = forest_stream
+	forest_player.play()
+	var night_stream := night_player.stream.duplicate() as AudioStreamWAV
+	night_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	night_player.stream = night_stream
+	var heli_stream := heli_player.stream.duplicate() as AudioStreamWAV
+	heli_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	heli_player.stream = heli_stream
 
 
 func notify_zombies_cleared() -> void:
@@ -78,13 +98,24 @@ func _begin_night() -> void:
 	day_night_timer.wait_time = NIGHT_DURATION
 	day_night_timer.start()
 	night_started.emit(current_round)
+	night_player.play()
 	var tween := create_tween().set_parallel(true)
 	tween.tween_property(_canvas_modulate, "color", NIGHT_COLOR, TRANSITION_DURATION)
 	tween.tween_method(_set_bg_color, DAY_BG_COLOR, NIGHT_BG_COLOR, TRANSITION_DURATION)
+	tween.tween_property(forest_player, "volume_db", FOREST_VOLUME_NIGHT, TRANSITION_DURATION)
+	tween.tween_property(night_player, "volume_db", NIGHT_AMBIENT_VOLUME, TRANSITION_DURATION)
+	if current_round == WIN_ROUNDS:
+		heli_player.volume_db = -18.0
+		heli_player.play()
+		_heli_tween = create_tween()
+		_heli_tween.tween_property(heli_player, "volume_db", -8.0, NIGHT_DURATION)
 
 
 func _end_night() -> void:
 	_ending_night = true
+	var is_last_night := current_round == WIN_ROUNDS
+	if is_instance_valid(_heli_tween):
+		_heli_tween.kill()
 	day_night_timer.stop()
 	_victory_label.text = "Sobreviviste la noche %d" % current_round
 	_victory_label.visible = true
@@ -97,7 +128,12 @@ func _end_night() -> void:
 	current_round += 1
 	day_night_timer.wait_time = DAY_DURATION
 	day_night_timer.start()
+	forest_player.play()
 	var tween := create_tween().set_parallel(true)
 	tween.tween_property(_canvas_modulate, "color", DAY_COLOR, TRANSITION_DURATION)
 	tween.tween_method(_set_bg_color, NIGHT_BG_COLOR, DAY_BG_COLOR, TRANSITION_DURATION)
+	tween.tween_property(forest_player, "volume_db", FOREST_VOLUME_DAY, TRANSITION_DURATION)
+	tween.tween_property(night_player, "volume_db", FOREST_VOLUME_NIGHT, TRANSITION_DURATION)
+	if is_last_night:
+		tween.tween_property(heli_player, "volume_db", 0.0, TRANSITION_DURATION)
 	day_started.emit(current_round)

@@ -19,13 +19,19 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 
+func can_swing() -> bool:
+	return not _is_on_cooldown
+
+
 func swing() -> void:
 	if _is_on_cooldown:
 		return
 	_is_on_cooldown = true
 	_hit_targets.clear()
-	monitoring = true
 	_play_swing_animation()
+	if _is_push_mode:
+		await get_tree().create_timer(0.2).timeout
+	monitoring = true
 	await get_tree().create_timer(swing_duration).timeout
 	monitoring = false
 	await get_tree().create_timer(attack_cooldown - swing_duration).timeout
@@ -33,6 +39,8 @@ func swing() -> void:
 
 
 func push_swing() -> void:
+	if _is_on_cooldown:
+		return
 	_is_push_mode = true
 	await swing()
 	if not is_instance_valid(self):

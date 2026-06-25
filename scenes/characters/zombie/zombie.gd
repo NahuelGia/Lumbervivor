@@ -10,9 +10,18 @@ var move_speed: float = 75.0
 var attack_damage: int = 10
 var zombie_type: ZombieType = ZombieType.NORMAL
 
+const GRUNT_SOUNDS: Array = [
+	preload("res://assets/audio/zombie1.wav"),
+	preload("res://assets/audio/zombie2.wav"),
+	preload("res://assets/audio/zombie3.wav"),
+]
+const GRUNT_INTERVAL_MIN: float = 4.0
+const GRUNT_INTERVAL_MAX: float = 8.0
+
 var target: Node2D
 var _knockback_velocity: Vector2 = Vector2.ZERO
 var _knockback_timer: float = 0.0
+var _grunt_timer: float = 0.0
 
 signal died
 
@@ -21,6 +30,7 @@ signal died
 @onready var health: HealthComponent = $HealthComponent
 @onready var attack_timer: Timer = $AttackTimer
 @onready var health_bar: HealthBar = $HealthBar
+@onready var grunt_player: AudioStreamPlayer2D = $GruntPlayer
 
 
 func _ready() -> void:
@@ -31,6 +41,7 @@ func _ready() -> void:
 	attack_timer.wait_time = ATTACK_INTERVAL
 	attack_timer.one_shot = false
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
+	_grunt_timer = randf_range(GRUNT_INTERVAL_MIN, GRUNT_INTERVAL_MAX)
 	await get_tree().physics_frame
 	if not is_instance_valid(self):
 		return
@@ -68,6 +79,13 @@ func _apply_type_color() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_instance_valid(target):
+		_grunt_timer -= delta
+		if _grunt_timer <= 0.0:
+			_grunt_timer = randf_range(GRUNT_INTERVAL_MIN, GRUNT_INTERVAL_MAX)
+			grunt_player.stream = GRUNT_SOUNDS[randi() % GRUNT_SOUNDS.size()]
+			grunt_player.play()
+
 	if _knockback_timer > 0.0:
 		_knockback_timer -= delta
 		velocity = _knockback_velocity
@@ -104,6 +122,12 @@ func _physics_process(delta: float) -> void:
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	if _knockback_timer > 0.0:
+		return
+	if not is_instance_valid(target):
+		return
+	if global_position.distance_to(target.global_position) <= ATTACK_RANGE:
+		return
+	if nav_agent.is_navigation_finished():
 		return
 	velocity = safe_velocity
 	move_and_slide()
