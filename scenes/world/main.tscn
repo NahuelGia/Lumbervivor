@@ -129,12 +129,19 @@ offset_bottom = -38.0
 theme_override_font_sizes/font_size = 12
 text = "[B] Tienda"
 
-[node name="Trees" type="Node2D" parent="World" unique_id=2140820108]
+[node name="Entities" type="Node2D" parent="World" unique_id=911960895]
+y_sort_enabled = true
 
-[node name="Zombies" type="Node2D" parent="World" unique_id=1287345814]
+[node name="Trees" type="Node2D" parent="World/Entities" unique_id=2140820108]
+unique_name_in_owner = true
+y_sort_enabled = true
 
-[node name="Player" parent="World" unique_id=1748240203 instance=ExtResource("2_player")]
+[node name="Player" parent="World/Entities" unique_id=1748240203 instance=ExtResource("2_player")]
+unique_name_in_owner = true
 position = Vector2(-7, 284)
+
+[node name="Zombies" type="Node2D" parent="World/Entities" unique_id=1287345814]
+unique_name_in_owner = true
 
 [node name="ZombieSpawner" parent="." unique_id=300000001 instance=ExtResource("6_zombie_spawner")]
 
