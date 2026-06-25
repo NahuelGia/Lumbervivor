@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bzombietscn01"]
+[gd_scene load_steps=8 format=3 uid="uid://bzombietscn01"]
 
 [ext_resource type="Script" uid="uid://bzombiegdscr1" path="res://scenes/characters/zombie/zombie.gd" id="1_zombie"]
 [ext_resource type="Script" uid="uid://healthcompgd01" path="res://scenes/components/health/health_component.gd" id="2_health"]
 [ext_resource type="Script" uid="uid://healthbargd001" path="res://scenes/components/health_bar/health_bar.gd" id="3_health_bar"]
+[ext_resource type="AudioStream" path="res://assets/audio/zombie1.wav" id="4_z1"]
+[ext_resource type="AudioStream" path="res://assets/audio/zombie2.wav" id="5_z2"]
+[ext_resource type="AudioStream" path="res://assets/audio/zombie3.wav" id="6_z3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 18.0
@@ -35,3 +38,7 @@ autostart = false
 [node name="HealthBar" type="Node2D" parent="."]
 position = Vector2(0, 28)
 script = ExtResource("3_health_bar")
+
+[node name="GruntPlayer" type="AudioStreamPlayer2D" parent="."]
+max_distance = 600.0
+attenuation = 2.0

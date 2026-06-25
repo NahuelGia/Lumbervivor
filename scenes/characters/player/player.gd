@@ -2,6 +2,11 @@ class_name Player
 extends CharacterBody2D
 
 const WOOD_PER_TREE: int = 5
+const HIT_SOUNDS: Array = [
+	preload("res://assets/audio/hit1.wav"),
+	preload("res://assets/audio/hit2.wav"),
+	preload("res://assets/audio/hit3.wav"),
+]
 const PUSH_FORCE: float = 300.0
 const PUSH_DURATION: float = 0.3
 
@@ -27,6 +32,7 @@ signal died
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var footstep_player: AudioStreamPlayer = $FootstepPlayer
 @onready var axe_hit_player: AudioStreamPlayer = $AxeHitPlayer
+@onready var zombie_hit_player: AudioStreamPlayer = $ZombieHitPlayer
 
 
 func _ready() -> void:
@@ -93,11 +99,14 @@ func _angle_to_direction(angle: float) -> Direction:
 
 func _handle_attack() -> void:
 	if Input.is_action_just_pressed("attack"):
+		if axe.can_swing():
+			var anim := _get_attack_anim()
+			if anim != "":
+				var frames := anim_sprite.sprite_frames
+				var duration := frames.get_frame_count(anim) / frames.get_animation_speed(anim)
+				anim_sprite.speed_scale = duration / axe.attack_cooldown
+				anim_sprite.play(anim)
 		axe.swing()
-		var anim := _get_attack_anim()
-		if anim != "":
-			anim_sprite.speed_scale = 2.5
-			anim_sprite.play(anim)
 
 
 func _get_attack_anim() -> String:
@@ -115,7 +124,27 @@ func _get_attack_anim() -> String:
 
 func _handle_push() -> void:
 	if Input.is_action_just_pressed("push"):
+		if axe.can_swing():
+			var anim := _get_push_anim()
+			if anim != "":
+				var frames := anim_sprite.sprite_frames
+				var duration := frames.get_frame_count(anim) / frames.get_animation_speed(anim)
+				anim_sprite.speed_scale = duration / axe.attack_cooldown
+				anim_sprite.play(anim)
 		axe.push_swing()
+
+
+func _get_push_anim() -> String:
+	match _facing:
+		Direction.N:  return "push_north"
+		Direction.NE: return "push_north_east"
+		Direction.E:  return "push_east"
+		Direction.SE: return "push_south_east"
+		Direction.S:  return "push_south"
+		Direction.SW: return "push_south_west"
+		Direction.W:  return "push_west"
+		Direction.NW: return "push_north_west"
+		_: return ""
 
 
 func take_damage(amount: int) -> void:
@@ -145,7 +174,8 @@ func upgrade_armor(health_bonus: int) -> void:
 
 func _update_idle_animation() -> void:
 	var is_moving := velocity.length_squared() > 0.0
-	if anim_sprite.animation.begins_with("attack") and anim_sprite.is_playing() and not is_moving:
+	var anim_name := anim_sprite.animation
+	if (anim_name.begins_with("attack") or anim_name.begins_with("push")) and anim_sprite.is_playing():
 		return
 	anim_sprite.speed_scale = 1.0
 	var anim := _get_walk_anim() if is_moving else _get_idle_anim()
@@ -187,6 +217,8 @@ func _on_animation_finished() -> void:
 
 func _on_axe_hit_zombie(zombie: Zombie) -> void:
 	zombie.take_damage(axe.damage)
+	zombie_hit_player.stream = HIT_SOUNDS[randi() % HIT_SOUNDS.size()]
+	zombie_hit_player.play()
 
 
 func _on_axe_hit_zombie_push(zombie: Zombie) -> void:

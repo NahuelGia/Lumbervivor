@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://daynightcycletscn1"]
+[gd_scene load_steps=5 format=3 uid="uid://daynightcycletscn1"]
 
 [ext_resource type="Script" uid="uid://daynightcyclegdsc1" path="res://scenes/managers/day_night_cycle.gd" id="1_dnc"]
+[ext_resource type="AudioStream" path="res://assets/audio/forest_sound.wav" id="2_forest"]
+[ext_resource type="AudioStream" path="res://assets/audio/forest_night_sound.wav" id="3_night"]
+[ext_resource type="AudioStream" path="res://assets/audio/helicopter.wav" id="4_heli"]
 
 [node name="DayNightCycle" type="Node"]
 script = ExtResource("1_dnc")
@@ -8,3 +11,15 @@ script = ExtResource("1_dnc")
 [node name="DayNightTimer" type="Timer" parent="."]
 wait_time = 90.0
 autostart = true
+
+[node name="ForestPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_forest")
+volume_db = -10.0
+
+[node name="NightPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_night")
+volume_db = -80.0
+
+[node name="HeliPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_heli")
+volume_db = -80.0
