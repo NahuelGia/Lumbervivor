@@ -4,9 +4,9 @@ const TREE_SCENE := preload("res://scenes/objects/tree/tree.tscn")
 const TERRAIN_HALF := Vector2(750.0, 450.0)
 const INITIAL_TREE_COUNT: int = 15
 
-@onready var player: Player = $World/Player
-@onready var trees_container: Node2D = $World/Trees
-@onready var zombies_container: Node2D = $World/Zombies
+@onready var player: Player = %Player
+@onready var trees_container: Node2D = %Trees
+@onready var zombies_container: Node2D = %Zombies
 @onready var cabin_fence: CabinFence = $World/Cabin/CabinFence
 @onready var bench_marker: Node2D = $World/Cabin/CraftingBenchMarker
 @onready var canvas_modulate: CanvasModulate = $World/CanvasModulate
@@ -16,6 +16,7 @@ const INITIAL_TREE_COUNT: int = 15
 @onready var victory_label: Label = $UI/VictoryLabel
 @onready var day_night_cycle: DayNightCycle = $DayNightCycle
 @onready var zombie_spawner: ZombieSpawner = $ZombieSpawner
+
 
 
 func _ready() -> void:

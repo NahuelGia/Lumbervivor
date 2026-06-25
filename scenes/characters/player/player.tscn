@@ -27,6 +27,8 @@
 [ext_resource type="Texture2D" uid="uid://dqirgcvt0aw8x" path="res://assets/lumberjack/walk/south-east.png" id="16_d73qs"]
 [ext_resource type="Texture2D" uid="uid://06d514e6up54" path="res://assets/lumberjack/walk/south-west.png" id="17_u6wme"]
 [ext_resource type="Texture2D" uid="uid://cqjkobdrny5n3" path="res://assets/lumberjack/walk/west.png" id="18_bxwvg"]
+[ext_resource type="AudioStream" uid="uid://cyvq6e118kidp" path="res://assets/audio/foosteps.wav" id="28_j8rto"]
+[ext_resource type="AudioStream" uid="uid://brolwj64kh0qt" path="res://assets/audio/axe_tree_hit.wav" id="29_b4gk5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nt47w"]
 atlas = ExtResource("2_2v4cy")
@@ -890,7 +892,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uue40")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_east",
 "speed": 5.0
 }, {
@@ -922,7 +924,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7k081")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_north",
 "speed": 5.0
 }, {
@@ -954,7 +956,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1muky")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_north_east",
 "speed": 5.0
 }, {
@@ -986,7 +988,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qui8h")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_north_west",
 "speed": 5.0
 }, {
@@ -1050,7 +1052,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fbwax")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_south_east",
 "speed": 5.0
 }, {
@@ -1082,7 +1084,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xgoun")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_south_west",
 "speed": 5.0
 }, {
@@ -1114,7 +1116,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y4pax")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_west",
 "speed": 5.0
 }, {
@@ -1607,23 +1609,25 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_player"]
-radius = 27.018513
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b4gk5"]
+radius = 19.0
+height = 66.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_axe"]
 radius = 10.29563
 
 [node name="Player" type="CharacterBody2D" unique_id=519182806]
+y_sort_enabled = true
 collision_mask = 14
 script = ExtResource("1_player")
+move_speed = 225.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1795119403]
 sprite_frames = SubResource("SpriteFrames_hv5x3")
-animation = &"attack_south_east"
-
+animation = &"attack_east"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=375116636]
-shape = SubResource("CircleShape2D_player")
+shape = SubResource("CapsuleShape2D_b4gk5")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1890270269]
 zoom = Vector2(1.5, 1.5)
@@ -1633,10 +1637,15 @@ collision_layer = 0
 collision_mask = 6
 script = ExtResource("2_axe")
 
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Axe" unique_id=1180548265]
 position = Vector2(32, 0)
 shape = SubResource("CircleShape2D_axe")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=344589528]
 script = ExtResource("3_health")
+
+[node name="FootstepPlayer" type="AudioStreamPlayer" parent="." unique_id=1607692097]
+stream = ExtResource("28_j8rto")
+
+[node name="AxeHitPlayer" type="AudioStreamPlayer" parent="." unique_id=1381664894]
+stream = ExtResource("29_b4gk5")
