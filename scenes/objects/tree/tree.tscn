@@ -2,19 +2,121 @@
 
 [ext_resource type="Script" uid="uid://d2r1v1ypujxfn" path="res://scenes/objects/tree/tree.gd" id="1_tree"]
 [ext_resource type="Script" uid="uid://4k0bneq33ft6" path="res://scenes/components/health/health_component.gd" id="2_health"]
-[ext_resource type="Script" uid="uid://healthbargd001" path="res://scenes/components/health_bar/health_bar.gd" id="3_health_bar"]
+[ext_resource type="Texture2D" uid="uid://x8lh7f8mtl60" path="res://assets/tree/pine_hit_spritesheet.png" id="2_q2gal"]
+[ext_resource type="Texture2D" uid="uid://c1xsrguk8oorl" path="res://assets/tree/idle/idle.png" id="2_xtxlg"]
+[ext_resource type="Script" uid="uid://2k0wcep5mxl8" path="res://scenes/components/health_bar/health_bar.gd" id="3_health_bar"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5wpx"]
+atlas = ExtResource("2_q2gal")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3crm"]
+atlas = ExtResource("2_q2gal")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sm7ng"]
+atlas = ExtResource("2_q2gal")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bk2ha"]
+atlas = ExtResource("2_q2gal")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2gal"]
+atlas = ExtResource("2_xtxlg")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flta1"]
+atlas = ExtResource("2_xtxlg")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1l8s"]
+atlas = ExtResource("2_xtxlg")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cl0qo"]
+atlas = ExtResource("2_xtxlg")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7vnl"]
+atlas = ExtResource("2_xtxlg")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ytki"]
+atlas = ExtResource("2_xtxlg")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nuo62"]
+atlas = ExtResource("2_xtxlg")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ewyy"]
+atlas = ExtResource("2_xtxlg")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_btgqo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5wpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3crm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sm7ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bk2ha")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2gal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flta1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1l8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cl0qo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7vnl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ytki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nuo62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ewyy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 22.0
 
 [node name="Tree" type="StaticBody2D" unique_id=80059053]
+y_sort_enabled = true
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_tree")
 
-[node name="Visual" type="Polygon2D" parent="." unique_id=399885347]
-color = Color(0.1, 0.6, 0.1, 1)
-polygon = PackedVector2Array(0, -28, 24, 20, -24, 20)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1737110122]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_btgqo")
+animation = &"hit"
+speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=732091627]
 shape = SubResource("CircleShape2D_1")
@@ -22,6 +124,6 @@ shape = SubResource("CircleShape2D_1")
 [node name="HealthComponent" type="Node" parent="." unique_id=579088448]
 script = ExtResource("2_health")
 
-[node name="HealthBar" type="Node2D" parent="."]
+[node name="HealthBar" type="Node2D" parent="." unique_id=1570111903]
 position = Vector2(0, 30)
 script = ExtResource("3_health_bar")
