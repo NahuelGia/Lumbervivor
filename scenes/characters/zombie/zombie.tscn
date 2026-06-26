@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bzombietscn01"]
+[gd_scene load_steps=6 format=3 uid="uid://bzombietscn01"]
 
 [ext_resource type="Script" uid="uid://bzombiegdscr1" path="res://scenes/characters/zombie/zombie.gd" id="1_zombie"]
 [ext_resource type="Script" uid="uid://healthcompgd01" path="res://scenes/components/health/health_component.gd" id="2_health"]
 [ext_resource type="Script" uid="uid://healthbargd001" path="res://scenes/components/health_bar/health_bar.gd" id="3_health_bar"]
-[ext_resource type="AudioStream" path="res://assets/audio/zombie1.wav" id="4_z1"]
-[ext_resource type="AudioStream" path="res://assets/audio/zombie2.wav" id="5_z2"]
-[ext_resource type="AudioStream" path="res://assets/audio/zombie3.wav" id="6_z3"]
+[ext_resource type="SpriteFrames" uid="uid://cp7r7tuwcy55s" path="res://scenes/characters/zombie/zombie_frames.tres" id="4_frames"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 18.0
@@ -15,9 +13,9 @@ collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_zombie")
 
-[node name="Visual" type="Polygon2D" parent="."]
-color = Color(0.9, 0.1, 0.1, 1)
-polygon = PackedVector2Array(18, 0, 15.59, 9, 9, 15.59, 0, 18, -9, 15.59, -15.59, 9, -18, 0, -15.59, -9, -9, -15.59, 0, -18, 9, -15.59, 15.59, -9)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("4_frames")
+animation = &"walk_south"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1")
@@ -42,3 +40,20 @@ script = ExtResource("3_health_bar")
 [node name="GruntPlayer" type="AudioStreamPlayer2D" parent="."]
 max_distance = 600.0
 attenuation = 2.0
+
+[node name="BloodParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+randomness = 0.3
+local_coords = false
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 120.0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.8, 0.05, 0.05, 1)
