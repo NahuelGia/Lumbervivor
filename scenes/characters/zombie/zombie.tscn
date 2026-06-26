@@ -40,3 +40,20 @@ script = ExtResource("3_health_bar")
 [node name="GruntPlayer" type="AudioStreamPlayer2D" parent="."]
 max_distance = 600.0
 attenuation = 2.0
+
+[node name="BloodParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+randomness = 0.3
+local_coords = false
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 120.0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.8, 0.05, 0.05, 1)

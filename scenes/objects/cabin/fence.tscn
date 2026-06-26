@@ -18,7 +18,7 @@ script = ExtResource("1_fence")
 shape = SubResource("RectangleShape2D_1")
 
 [node name="Visual" type="Polygon2D" parent="." unique_id=658107056]
-color = Color(1, 0.6, 0.8, 1)
+visible = false
 polygon = PackedVector2Array(-140, -20, 140, -20, 140, 20, -140, 20)
 
 [node name="HealthComponent" type="Node" parent="."]
