@@ -25,6 +25,7 @@ var _last_dir: String = "south"
 var _is_hit: bool = false
 var _is_attacking: bool = false
 var _is_dead: bool = false
+var _grunt_timer: float = 0.0
 
 signal died
 
@@ -34,6 +35,7 @@ signal died
 @onready var attack_timer: Timer = $AttackTimer
 @onready var health_bar: HealthBar = $HealthBar
 @onready var grunt_player: AudioStreamPlayer2D = $GruntPlayer
+@onready var blood_particles: CPUParticles2D = $BloodParticles
 
 
 func _ready() -> void:
@@ -163,6 +165,7 @@ func _on_velocity_computed(safe_velocity: Vector2) -> void:
 
 func take_damage(amount: int) -> void:
 	health.take_damage(amount)
+	blood_particles.restart()
 	_play_hit_anim()
 
 
