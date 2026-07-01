@@ -24,10 +24,12 @@ anchors_left = 0.5
 anchors_top = 0.5
 anchors_right = 0.5
 anchors_bottom = 0.5
-offset_left = -250.0
-offset_top = -300.0
-offset_right = 250.0
-offset_bottom = 300.0
+offset_left = -300.0
+offset_top = -350.0
+offset_right = 300.0
+offset_bottom = 350.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2

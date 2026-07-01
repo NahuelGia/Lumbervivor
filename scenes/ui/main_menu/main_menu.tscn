@@ -24,11 +24,13 @@ anchors_left = 0.5
 anchors_top = 0.5
 anchors_right = 0.5
 anchors_bottom = 0.5
-offset_left = -100.0
-offset_top = -100.0
-offset_right = 100.0
-offset_bottom = 100.0
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
 alignment = 1
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 layout_mode = 2
