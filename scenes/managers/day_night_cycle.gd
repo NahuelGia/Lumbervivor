@@ -105,10 +105,10 @@ func _begin_night() -> void:
 	tween.tween_property(forest_player, "volume_db", FOREST_VOLUME_NIGHT, TRANSITION_DURATION)
 	tween.tween_property(night_player, "volume_db", NIGHT_AMBIENT_VOLUME, TRANSITION_DURATION)
 	if current_round == WIN_ROUNDS:
-		heli_player.volume_db = -18.0
+		heli_player.volume_db = -80.0
 		heli_player.play()
 		_heli_tween = create_tween()
-		_heli_tween.tween_property(heli_player, "volume_db", -8.0, NIGHT_DURATION)
+		_heli_tween.tween_property(heli_player, "volume_db", -5.0, NIGHT_DURATION)
 
 
 func _end_night() -> void:
