@@ -40,3 +40,7 @@ text = "Ronda: 1"
 [node name="PhaseLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1400000002]
 layout_mode = 2
 text = "Fase: DÍA"
+
+[node name="TimerLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1400000004]
+layout_mode = 2
+text = "Tiempo: 90s"
