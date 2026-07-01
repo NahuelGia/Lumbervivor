@@ -112,6 +112,7 @@ func _velocity_to_dir(vel: Vector2) -> String:
 
 func _physics_process(delta: float) -> void:
 	_update_animation()
+	_update_grunt_sound(delta)
 	if _is_attacking:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -193,6 +194,16 @@ func _on_attack_timer_timeout() -> void:
 	if global_position.distance_to(target.global_position) <= ATTACK_RANGE:
 		if target.has_method("take_damage"):
 			target.take_damage(attack_damage)
+
+
+func _update_grunt_sound(delta: float) -> void:
+	_grunt_timer -= delta
+	if _grunt_timer <= 0.0:
+		_grunt_timer = randf_range(GRUNT_INTERVAL_MIN, GRUNT_INTERVAL_MAX)
+		if not grunt_player.playing:
+			var sound = GRUNT_SOUNDS[randi() % GRUNT_SOUNDS.size()]
+			grunt_player.stream = sound
+			grunt_player.play()
 
 
 func _on_health_died() -> void:
