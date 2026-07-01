@@ -1,9 +1,9 @@
 extends Control
 class_name MainMenu
 
-@onready var play_button = $VBoxContainer/PlayButton
-@onready var settings_button = $VBoxContainer/SettingsButton
-@onready var quit_button = $VBoxContainer/QuitButton
+@onready var play_button = $CenterContainer/VBoxContainer/PlayButton
+@onready var settings_button = $CenterContainer/VBoxContainer/SettingsButton
+@onready var quit_button = $CenterContainer/VBoxContainer/QuitButton
 
 func _ready() -> void:
 	play_button.pressed.connect(_on_play_pressed)
