@@ -1,9 +1,9 @@
 extends Control
 class_name Settings
 
-@onready var volume_slider = $CenterContainer/VBoxContainer/VolumeContainer/VolumeSlider
-@onready var volume_label = $CenterContainer/VBoxContainer/VolumeContainer/VolumeLabel
-@onready var back_button = $CenterContainer/VBoxContainer/BackButton
+@onready var volume_slider = $PanelContainer/MarginContainer/VBoxContainer/VolumeContainer/VolumeSlider
+@onready var volume_label = $PanelContainer/MarginContainer/VBoxContainer/VolumeContainer/VolumeLabel
+@onready var back_button = $PanelContainer/MarginContainer/VBoxContainer/BackButton
 
 func _ready() -> void:
 	volume_slider.value = AudioServer.get_bus_mute(0) ? 0 : db_to_linear(AudioServer.get_bus_peak_volume_left_db(0))

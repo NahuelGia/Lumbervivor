@@ -1,10 +1,10 @@
 extends Control
 class_name Tutorial
 
-@onready var content_label = $CenterContainer/VBoxContainer/ScrollContainer/ContentLabel
-@onready var next_button = $CenterContainer/VBoxContainer/HBoxContainer/NextButton
-@onready var back_button = $CenterContainer/VBoxContainer/HBoxContainer/BackButton
-@onready var skip_button = $CenterContainer/VBoxContainer/HBoxContainer/SkipButton
+@onready var content_label = $PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ContentLabel
+@onready var next_button = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/NextButton
+@onready var back_button = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton
+@onready var skip_button = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SkipButton
 
 var current_page = 0
 var pages = [
