@@ -5,9 +5,9 @@ enum Phase { DAY, NIGHT }
 
 const WIN_ROUNDS: int = 5
 
-const FOREST_VOLUME_DAY: float = -5.0
+const FOREST_VOLUME_DAY: float = 0.0
 const FOREST_VOLUME_NIGHT: float = -80.0
-const NIGHT_AMBIENT_VOLUME: float = -5.0
+const NIGHT_AMBIENT_VOLUME: float = 0.0
 
 const DAY_COLOR := Color(1.0, 1.0, 1.0, 1.0)
 const NIGHT_COLOR := Color(0.3, 0.3, 0.5, 1.0)
