@@ -39,12 +39,14 @@ var _heli_tween: Tween
 var _canvas_modulate: CanvasModulate
 var _victory_label: Label
 var _zombie_spawner: ZombieSpawner
+var _hud: HUD
 
 
-func setup(canvas_mod: CanvasModulate, v_label: Label, spawner: ZombieSpawner) -> void:
+func setup(canvas_mod: CanvasModulate, v_label: Label, spawner: ZombieSpawner, hud: HUD) -> void:
 	_canvas_modulate = canvas_mod
 	_victory_label = v_label
 	_zombie_spawner = spawner
+	_hud = hud
 	day_night_timer.timeout.connect(_on_day_night_timer_timeout)
 	var forest_stream := forest_player.stream.duplicate() as AudioStreamWAV
 	forest_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
@@ -62,6 +64,11 @@ func notify_zombies_cleared() -> void:
 	if night_ending and not _ending_night:
 		night_ending = false
 		_end_night()
+
+
+func _process(_delta: float) -> void:
+	if _hud:
+		_hud.update_timer(day_night_timer.time_left)
 
 
 func _on_day_night_timer_timeout() -> void:
