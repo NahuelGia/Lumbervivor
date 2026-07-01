@@ -14,11 +14,11 @@ autostart = true
 
 [node name="ForestPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_forest")
-volume_db = -10.0
+volume_db = 0.0
 
 [node name="NightPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_night")
-volume_db = -80.0
+volume_db = 0.0
 
 [node name="HeliPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_heli")
