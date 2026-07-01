@@ -6,6 +6,7 @@ extends Control
 @onready var round_label: Label = $MarginContainer/VBoxContainer/RoundLabel
 @onready var phase_label: Label = $MarginContainer/VBoxContainer/PhaseLabel
 @onready var fence_label: Label = $MarginContainer/VBoxContainer/FenceLabel
+@onready var timer_label: Label = $MarginContainer/VBoxContainer/TimerLabel
 
 
 func update_health(current: int, max_val: int) -> void:
@@ -28,3 +29,9 @@ func on_day_started(round: int) -> void:
 func on_night_started(round: int) -> void:
 	round_label.text = "Ronda: %d" % round
 	phase_label.text = "Fase: NOCHE"
+
+
+func update_timer(seconds_left: float) -> void:
+	var minutes := int(seconds_left) / 60
+	var seconds := int(seconds_left) % 60
+	timer_label.text = "Tiempo: %02d:%02d" % [minutes, seconds]

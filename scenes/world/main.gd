@@ -23,7 +23,7 @@ const INITIAL_TREE_COUNT: int = 15
 func _ready() -> void:
 	_spawn_trees()
 	zombie_spawner.setup(player, cabin_fence, zombies_container, TERRAIN_HALF)
-	day_night_cycle.setup(canvas_modulate, victory_label, zombie_spawner)
+	day_night_cycle.setup(canvas_modulate, victory_label, zombie_spawner, hud)
 	crafting_bench.setup(player, cabin_fence, bench_marker)
 
 	# Señales de ciclo día/noche
