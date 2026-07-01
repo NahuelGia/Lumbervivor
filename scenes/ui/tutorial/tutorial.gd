@@ -2,8 +2,8 @@ extends Control
 class_name Tutorial
 
 @onready var content_label = $VBoxContainer/ScrollContainer/ContentLabel
-@onready var next_button = $VBoxContainer/NextButton
-@onready var back_button = $VBoxContainer/BackButton
+@onready var next_button = $VBoxContainer/HBoxContainer/NextButton
+@onready var back_button = $VBoxContainer/HBoxContainer/BackButton
 
 var current_page = 0
 var pages = [
