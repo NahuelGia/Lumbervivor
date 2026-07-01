@@ -6,8 +6,11 @@ class_name Settings
 @onready var back_button = $PanelContainer/MarginContainer/VBoxContainer/BackButton
 
 func _ready() -> void:
-	volume_slider.value = AudioServer.get_bus_mute(0) ? 0 : db_to_linear(AudioServer.get_bus_peak_volume_left_db(0))
+	# Asegurar que el audio no está muteado y tiene volumen máximo
+	AudioServer.set_bus_mute(0, false)
+	AudioServer.set_bus_volume_db(0, 6.0)
 
+	volume_slider.value = 1.0
 	volume_slider.value_changed.connect(_on_volume_changed)
 	back_button.pressed.connect(_on_back_pressed)
 
@@ -18,7 +21,9 @@ func _on_volume_changed(value: float) -> void:
 		AudioServer.set_bus_mute(0, true)
 	else:
 		AudioServer.set_bus_mute(0, false)
-		AudioServer.set_bus_volume_db(0, linear2db(value))
+		# Mapear 0.0-1.0 a -40dB a +6dB para mejor rango
+		var db_value = lerpf(-40.0, 6.0, value)
+		AudioServer.set_bus_volume_db(0, db_value)
 	_update_volume_label()
 
 func _update_volume_label() -> void:
