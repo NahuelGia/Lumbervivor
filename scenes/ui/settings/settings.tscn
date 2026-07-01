@@ -60,29 +60,7 @@ value = 0.8
 
 [node name="Spacer2" type="Control" parent="VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 20)
-
-[node name="DifficultyContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-custom_minimum_size = Vector2(0, 60)
-
-[node name="DifficultyLabel" type="Label" parent="VBoxContainer/DifficultyContainer"]
-layout_mode = 2
-custom_minimum_size = Vector2(150, 0)
-text = "Dificultad: Normal"
-theme_override_font_sizes/font_size = 20
-
-[node name="DifficultySlider" type="HSlider" parent="VBoxContainer/DifficultyContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = 0.0
-max_value = 3.0
-step = 1.0
-value = 1.0
-
-[node name="Spacer3" type="Control" parent="VBoxContainer"]
-layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 50)
 
 [node name="BackButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
