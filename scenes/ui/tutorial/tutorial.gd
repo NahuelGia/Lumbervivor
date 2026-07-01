@@ -1,9 +1,10 @@
 extends Control
 class_name Tutorial
 
-@onready var content_label = $VBoxContainer/ScrollContainer/ContentLabel
-@onready var next_button = $VBoxContainer/HBoxContainer/NextButton
-@onready var back_button = $VBoxContainer/HBoxContainer/BackButton
+@onready var content_label = $CenterContainer/VBoxContainer/ScrollContainer/ContentLabel
+@onready var next_button = $CenterContainer/VBoxContainer/HBoxContainer/NextButton
+@onready var back_button = $CenterContainer/VBoxContainer/HBoxContainer/BackButton
+@onready var skip_button = $CenterContainer/VBoxContainer/HBoxContainer/SkipButton
 
 var current_page = 0
 var pages = [
@@ -36,6 +37,7 @@ var pages = [
 func _ready() -> void:
 	next_button.pressed.connect(_on_next_pressed)
 	back_button.pressed.connect(_on_back_pressed)
+	skip_button.pressed.connect(_on_skip_pressed)
 	_update_content()
 
 func _on_next_pressed() -> void:
@@ -48,6 +50,9 @@ func _on_next_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
+
+func _on_skip_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/world/main.tscn")
 
 func _update_content() -> void:
 	var page = pages[current_page]
