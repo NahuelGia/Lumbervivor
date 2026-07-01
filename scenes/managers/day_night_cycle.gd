@@ -51,13 +51,16 @@ func setup(canvas_mod: CanvasModulate, v_label: Label, spawner: ZombieSpawner, h
 	var forest_stream := forest_player.stream.duplicate() as AudioStreamWAV
 	forest_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
 	forest_player.stream = forest_stream
+	forest_player.volume_db = FOREST_VOLUME_DAY
 	forest_player.play()
 	var night_stream := night_player.stream.duplicate() as AudioStreamWAV
 	night_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
 	night_player.stream = night_stream
+	night_player.volume_db = FOREST_VOLUME_NIGHT
 	var heli_stream := heli_player.stream.duplicate() as AudioStreamWAV
 	heli_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
 	heli_player.stream = heli_stream
+	heli_player.volume_db = -80.0
 
 
 func notify_zombies_cleared() -> void:
