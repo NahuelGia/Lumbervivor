@@ -121,6 +121,10 @@ speed_scale = 0.5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=732091627]
 shape = SubResource("CircleShape2D_1")
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 22.0
+avoidance_enabled = true
+
 [node name="HealthComponent" type="Node" parent="." unique_id=579088448]
 script = ExtResource("2_health")
 
