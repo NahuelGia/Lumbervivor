@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://d1n8e1d4h0q4b" path="res://assets/structures/Wire-Fence_TileSet.png" id="7_i5mec"]
 [ext_resource type="PackedScene" uid="uid://dtyloly5hkwh5" path="res://scenes/ui/victory/victory_screen.tscn" id="8_victory"]
 [ext_resource type="PackedScene" uid="uid://oxiqxcl8m4y3" path="res://scenes/ui/pause/pause_menu.tscn" id="9_pause"]
+[ext_resource type="PackedScene" uid="uid://towertscn01" path="res://scenes/objects/tower/tower.tscn" id="10_tower"]
 [ext_resource type="Texture2D" uid="uid://dq563pkhtcckh" path="res://assets/structures/Workbench.png" id="11_workbench"]
 [ext_resource type="Texture2D" uid="uid://ct5mgkqemp3vf" path="res://assets/structures/cabin.png" id="12_cabin"]
 
@@ -1402,7 +1403,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAAACAAoAAAAAAAIAAAACAAoAAAAAAAUAAAACAAo
 tile_set = SubResource("TileSet_oaya2")
 
 [node name="WorldBorder" type="Node2D" parent="World" unique_id=1767097003]
-visible = false
 
 [node name="WallTopLeft" type="StaticBody2D" parent="World/WorldBorder" unique_id=633550500]
 position = Vector2(-507, -510)
@@ -1489,6 +1489,10 @@ texture = ExtResource("12_cabin")
 position = Vector2(-11, 101)
 scale = Vector2(1.1805568, 0.618311)
 
+[node name="Tower" parent="World/Cabin" unique_id=2000000001 instance=ExtResource("10_tower")]
+visible = false
+position = Vector2(-80, 150)
+
 [node name="CraftingBenchMarker" type="StaticBody2D" parent="World/Cabin" unique_id=1996444648]
 position = Vector2(231, 150)
 collision_layer = 8
@@ -1553,6 +1557,10 @@ position = Vector2(-7, 284)
 
 [node name="Zombies" type="Node2D" parent="World/Entities" unique_id=1287345814]
 unique_name_in_owner = true
+
+[node name="Projectiles" type="Node2D" parent="World/Entities" unique_id=1287345815]
+unique_name_in_owner = true
+position = Vector2(4, -2)
 
 [node name="ZombieSpawner" parent="." unique_id=300000001 instance=ExtResource("6_zombie_spawner")]
 
