@@ -39,6 +39,7 @@ signal died
 
 
 func _ready() -> void:
+	add_to_group("zombies")
 	health.died.connect(_on_health_died)
 	health.health_changed.connect(health_bar.update_health)
 	nav_agent.max_speed = move_speed

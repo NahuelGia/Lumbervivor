@@ -53,6 +53,11 @@ text = "Armadura de madera  +30 HP máx.  —  10 madera"
 layout_mode = 2
 text = "Barricada de madera  +100 HP reja  —  6 madera"
 
+[node name="TowerButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000010]
+layout_mode = 2
+text = "Torreta  Dispara a zombies  —  185 madera"
+
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/AxeButton" to="." method="_on_axe_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ArmorButton" to="." method="_on_armor_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/BarricadeButton" to="." method="_on_barricade_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/TowerButton" to="." method="_on_tower_button_pressed"]
