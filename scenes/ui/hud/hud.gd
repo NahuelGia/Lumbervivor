@@ -4,9 +4,8 @@ extends Control
 @onready var health_label: Label = $MarginContainer/VBoxContainer/HealthLabel
 @onready var wood_label: Label = $MarginContainer/VBoxContainer/WoodLabel
 @onready var round_label: Label = $MarginContainer/VBoxContainer/RoundLabel
-@onready var phase_label: Label = $MarginContainer/VBoxContainer/PhaseLabel
 @onready var fence_label: Label = $MarginContainer/VBoxContainer/FenceLabel
-@onready var timer_label: Label = $MarginContainer/VBoxContainer/TimerLabel
+@onready var timer_label: Label = $TimerContainer/TimerLabel
 
 
 func update_health(current: int, max_val: int) -> void:
@@ -23,12 +22,10 @@ func update_fence(current: int, max_val: int) -> void:
 
 func on_day_started(round: int) -> void:
 	round_label.text = "Ronda: %d" % round
-	phase_label.text = "Fase: DÍA"
 
 
 func on_night_started(round: int) -> void:
 	round_label.text = "Ronda: %d" % round
-	phase_label.text = "Fase: NOCHE"
 
 
 func update_timer(seconds_left: float) -> void:

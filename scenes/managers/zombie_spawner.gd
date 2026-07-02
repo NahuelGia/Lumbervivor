@@ -5,6 +5,8 @@ const ZOMBIE_SCENE := preload("res://scenes/characters/zombie/zombie.tscn")
 const ZOMBIE_SPAWN_BASE_INTERVAL: float = 4.0
 const ZOMBIE_SPAWN_MIN_INTERVAL: float = 2.0
 const MAX_CONCURRENT_ZOMBIES: int = 15
+const MIN_SPAWN_DISTANCE_FROM_FENCE: float = 300.0
+const MAX_SPAWN_ATTEMPTS: int = 20
 
 var active_zombies: int = 0
 var _night_ending: bool = false
@@ -55,7 +57,7 @@ func _on_zombie_spawn_timer_timeout() -> void:
 
 func _spawn_one_zombie() -> void:
 	var zombie: Zombie = ZOMBIE_SCENE.instantiate()
-	zombie.position = _random_position_on_edge()
+	zombie.position = _pick_spawn_position()
 	var fence_valid := is_instance_valid(_cabin_fence)
 	zombie.target = (_cabin_fence if randf() < 0.7 else _player) if fence_valid else _player
 	_zombies_container.add_child(zombie)
@@ -88,6 +90,17 @@ func debug_clear_all() -> void:
 		zombie.queue_free()
 	active_zombies = 0
 	_night_ending = false
+
+
+func _pick_spawn_position() -> Vector2:
+	var position := _random_position_on_edge()
+	if not is_instance_valid(_cabin_fence):
+		return position
+	var attempts := 0
+	while position.distance_to(_cabin_fence.global_position) < MIN_SPAWN_DISTANCE_FROM_FENCE and attempts < MAX_SPAWN_ATTEMPTS:
+		position = _random_position_on_edge()
+		attempts += 1
+	return position
 
 
 func _random_position_on_edge() -> Vector2:

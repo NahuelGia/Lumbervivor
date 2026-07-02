@@ -2,7 +2,7 @@ extends Node2D
 
 const TREE_SCENE := preload("res://scenes/objects/tree/tree.tscn")
 const TERRAIN_HALF := Vector2(750.0, 450.0)
-const INITIAL_TREE_COUNT: int = 15
+const INITIAL_TREE_COUNT: int = 17
 
 @onready var player: Player = %Player
 @onready var trees_container: Node2D = %Trees
