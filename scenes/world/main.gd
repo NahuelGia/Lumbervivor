@@ -7,7 +7,9 @@ const INITIAL_TREE_COUNT: int = 15
 @onready var player: Player = %Player
 @onready var trees_container: Node2D = %Trees
 @onready var zombies_container: Node2D = %Zombies
+@onready var projectiles_container: Node2D = %Projectiles
 @onready var cabin_fence: CabinFence = $World/Cabin/CabinFence
+@onready var tower: Tower = $World/Cabin/Tower
 @onready var bench_marker: Node2D = $World/Cabin/CraftingBenchMarker
 @onready var canvas_modulate: CanvasModulate = $World/CanvasModulate
 @onready var hud: HUD = $UI/HUD
@@ -24,7 +26,7 @@ func _ready() -> void:
 	_spawn_trees()
 	zombie_spawner.setup(player, cabin_fence, zombies_container, TERRAIN_HALF)
 	day_night_cycle.setup(canvas_modulate, victory_label, zombie_spawner, hud)
-	crafting_bench.setup(player, cabin_fence, bench_marker)
+	crafting_bench.setup(player, cabin_fence, bench_marker, tower)
 
 	# Señales de ciclo día/noche
 	day_night_cycle.night_started.connect(zombie_spawner.begin_night)
@@ -42,7 +44,6 @@ func _ready() -> void:
 	# CraftingBench: habilitar de día, deshabilitar de noche
 	day_night_cycle.day_started.connect(crafting_bench.enable)
 	day_night_cycle.night_started.connect(crafting_bench.disable)
-
 	# Game Over
 	cabin_fence.destroyed.connect(_on_fence_destroyed)
 	player.died.connect(_on_player_died)
