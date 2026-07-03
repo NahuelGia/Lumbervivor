@@ -66,11 +66,44 @@ func _fire() -> void:
 		return
 	var projectile: TowerProjectile = PROJECTILE_SCENE.instantiate()
 	projectile.global_position = global_position
-	var direction_to_target = global_position.direction_to(_current_target.global_position)
-	projectile.direction = direction_to_target
+	var aim_point := _calculate_lead_position(_current_target)
+	projectile.direction = global_position.direction_to(aim_point)
 	projectile.damage = PROJECTILE_DAMAGE
 	_projectile_container.add_child(projectile)
 	shoot_sound_player.play()
+
+
+func _calculate_lead_position(target: Zombie) -> Vector2:
+	var target_velocity: Vector2 = target.velocity
+	var to_target: Vector2 = target.global_position - global_position
+
+	var a: float = target_velocity.dot(target_velocity) - TowerProjectile.SPEED * TowerProjectile.SPEED
+	var b: float = 2.0 * to_target.dot(target_velocity)
+	var c: float = to_target.dot(to_target)
+
+	var t: float = 0.0
+	if abs(a) < 0.0001:
+		if abs(b) > 0.0001:
+			t = -c / b
+	else:
+		var discriminant: float = b * b - 4.0 * a * c
+		if discriminant >= 0.0:
+			var sqrt_disc: float = sqrt(discriminant)
+			t = _smallest_positive_root((-b + sqrt_disc) / (2.0 * a), (-b - sqrt_disc) / (2.0 * a))
+
+	if t <= 0.0:
+		return target.global_position
+	return target.global_position + target_velocity * t
+
+
+func _smallest_positive_root(t1: float, t2: float) -> float:
+	if t1 > 0.0 and t2 > 0.0:
+		return min(t1, t2)
+	elif t1 > 0.0:
+		return t1
+	elif t2 > 0.0:
+		return t2
+	return 0.0
 
 
 func take_damage(amount: int) -> void:
@@ -97,16 +130,22 @@ func _get_direction_from_angle(angle: float) -> String:
 	var normalized_angle = fmod(angle + TAU, TAU)
 	normalized_angle = rad_to_deg(normalized_angle)
 
-	if normalized_angle >= 315.0 or normalized_angle < 45.0:
+	if normalized_angle >= 337.5 or normalized_angle < 22.5:
 		return "east"
-	elif normalized_angle >= 45.0 and normalized_angle < 112.5:
+	elif normalized_angle < 67.5:
 		return "south_east"
-	elif normalized_angle >= 112.5 and normalized_angle < 157.5:
+	elif normalized_angle < 112.5:
 		return "south"
-	elif normalized_angle >= 157.5 and normalized_angle < 225.0:
+	elif normalized_angle < 157.5:
 		return "south_west"
-	else:
+	elif normalized_angle < 202.5:
 		return "west"
+	elif normalized_angle < 247.5:
+		return "north_west"
+	elif normalized_angle < 292.5:
+		return "north"
+	else:
+		return "north_east"
 
 
 func _check_direction_change() -> void:

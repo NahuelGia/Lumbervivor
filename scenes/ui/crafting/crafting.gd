@@ -17,6 +17,7 @@ var _axe_bought: bool = false
 var _armor_bought: bool = false
 var _barricade_bought: bool = false
 var _tower_bought: bool = false
+var _debug_free_upgrades: bool = false
 
 @onready var axe_button: Button = $PanelContainer/MarginContainer/VBoxContainer/AxeButton
 @onready var armor_button: Button = $PanelContainer/MarginContainer/VBoxContainer/ArmorButton
@@ -63,6 +64,12 @@ func _near_bench() -> bool:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if OS.is_debug_build() and event is InputEventKey and event.pressed and not event.echo \
+			and event.keycode == KEY_F9:
+		_debug_free_upgrades = not _debug_free_upgrades
+		print("[DEBUG] Mejoras gratis: ", _debug_free_upgrades)
+		if visible:
+			_update_buttons()
 	if event.is_action_pressed("open_bench") and _is_day:
 		if visible:
 			_close()
@@ -94,24 +101,30 @@ func _on_wood_changed(_amount: int) -> void:
 func _update_buttons() -> void:
 	var axe_suffix := "  [COMPRADO]" if _axe_bought else "  —  %d madera" % COST_AXE
 	axe_button.text = "Hacha mejorada  +15 daño" + axe_suffix
-	axe_button.disabled = _axe_bought or _player.wood < COST_AXE
+	axe_button.disabled = _axe_bought or not (_debug_free_upgrades or _player.wood >= COST_AXE)
 
 	var armor_suffix := "  [COMPRADO]" if _armor_bought else "  —  %d madera" % COST_ARMOR
 	armor_button.text = "Armadura de madera  +30 HP máx." + armor_suffix
-	armor_button.disabled = _armor_bought or _player.wood < COST_ARMOR
+	armor_button.disabled = _armor_bought or not (_debug_free_upgrades or _player.wood >= COST_ARMOR)
 
 	var barricade_suffix := "  [COMPRADO]" if _barricade_bought else "  —  %d madera" % COST_BARRICADE
 	barricade_button.text = "Barricada de madera  +100 HP reja" + barricade_suffix
-	barricade_button.disabled = _barricade_bought or _player.wood < COST_BARRICADE
+	barricade_button.disabled = _barricade_bought or not (_debug_free_upgrades or _player.wood >= COST_BARRICADE)
 
 	var tower_suffix := "  [COMPRADO]" if _tower_bought else "  —  %d madera" % COST_TOWER
 	tower_button.text = "Torreta  Dispara a zombies" + tower_suffix
-	tower_button.disabled = _tower_bought or _player.wood < COST_TOWER
+	tower_button.disabled = _tower_bought or not (_debug_free_upgrades or _player.wood >= COST_TOWER)
+
+
+func _try_spend(amount: int) -> bool:
+	if _debug_free_upgrades:
+		return true
+	return _player.spend_wood(amount)
 
 
 func _on_axe_button_pressed() -> void:
 	hud_ok_sound.play()
-	if _axe_bought or not _player.spend_wood(COST_AXE):
+	if _axe_bought or not _try_spend(COST_AXE):
 		return
 	_player.upgrade_axe(15)
 	_axe_bought = true
@@ -120,7 +133,7 @@ func _on_axe_button_pressed() -> void:
 
 func _on_armor_button_pressed() -> void:
 	hud_ok_sound.play()
-	if _armor_bought or not _player.spend_wood(COST_ARMOR):
+	if _armor_bought or not _try_spend(COST_ARMOR):
 		return
 	_player.upgrade_armor(30)
 	_armor_bought = true
@@ -129,7 +142,7 @@ func _on_armor_button_pressed() -> void:
 
 func _on_barricade_button_pressed() -> void:
 	hud_ok_sound.play()
-	if _barricade_bought or not _player.spend_wood(COST_BARRICADE):
+	if _barricade_bought or not _try_spend(COST_BARRICADE):
 		return
 	if not is_instance_valid(_fence):
 		return
@@ -140,7 +153,7 @@ func _on_barricade_button_pressed() -> void:
 
 func _on_tower_button_pressed() -> void:
 	hud_ok_sound.play()
-	if _tower_bought or not _player.spend_wood(COST_TOWER):
+	if _tower_bought or not _try_spend(COST_TOWER):
 		return
 	_tower_bought = true
 	if is_instance_valid(_tower):

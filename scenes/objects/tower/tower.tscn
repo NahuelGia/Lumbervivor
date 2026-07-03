@@ -29,6 +29,18 @@ region = Rect2(204, 68, 68, 68)
 atlas = ExtResource("3_5qtp4")
 region = Rect2(136, 68, 68, 68)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne01"]
+atlas = ExtResource("3_5qtp4")
+region = Rect2(204, 0, 68, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n01"]
+atlas = ExtResource("3_5qtp4")
+region = Rect2(0, 68, 68, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nw01"]
+atlas = ExtResource("3_5qtp4")
+region = Rect2(68, 68, 68, 68)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ihhh4"]
 animations = [{
 "frames": [{
@@ -69,6 +81,30 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle_west",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne01")
+}],
+"loop": true,
+"name": &"idle_north_east",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n01")
+}],
+"loop": true,
+"name": &"idle_north",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nw01")
+}],
+"loop": true,
+"name": &"idle_north_west",
 "speed": 5.0
 }]
 
