@@ -10,6 +10,7 @@ script = ExtResource("1_dnc")
 
 [node name="DayNightTimer" type="Timer" parent="."]
 wait_time = 60.0
+one_shot = true
 autostart = true
 
 [node name="ForestPlayer" type="AudioStreamPlayer" parent="."]
