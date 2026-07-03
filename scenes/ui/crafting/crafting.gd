@@ -4,7 +4,7 @@ extends Control
 const COST_AXE: int = 100
 const COST_ARMOR: int = 50
 const COST_BARRICADE: int = 30
-const COST_TOWER: int = 5
+const COST_TOWER: int = 120
 const BENCH_PROXIMITY: float = 160.0
 
 var _player: Player
@@ -22,6 +22,7 @@ var _tower_bought: bool = false
 @onready var armor_button: Button = $PanelContainer/MarginContainer/VBoxContainer/ArmorButton
 @onready var barricade_button: Button = $PanelContainer/MarginContainer/VBoxContainer/BarricadeButton
 @onready var tower_button: Button = $PanelContainer/MarginContainer/VBoxContainer/TowerButton
+@onready var hud_ok_sound: AudioStreamPlayer = $HudOkSoundPlayer
 
 signal tower_purchased
 
@@ -70,6 +71,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func _open() -> void:
+	hud_ok_sound.play()
 	visible = true
 	_bench_paused = true
 	get_tree().paused = true
@@ -77,6 +79,7 @@ func _open() -> void:
 
 
 func _close() -> void:
+	hud_ok_sound.play()
 	visible = false
 	if _bench_paused:
 		_bench_paused = false
@@ -107,6 +110,7 @@ func _update_buttons() -> void:
 
 
 func _on_axe_button_pressed() -> void:
+	hud_ok_sound.play()
 	if _axe_bought or not _player.spend_wood(COST_AXE):
 		return
 	_player.upgrade_axe(15)
@@ -115,6 +119,7 @@ func _on_axe_button_pressed() -> void:
 
 
 func _on_armor_button_pressed() -> void:
+	hud_ok_sound.play()
 	if _armor_bought or not _player.spend_wood(COST_ARMOR):
 		return
 	_player.upgrade_armor(30)
@@ -123,6 +128,7 @@ func _on_armor_button_pressed() -> void:
 
 
 func _on_barricade_button_pressed() -> void:
+	hud_ok_sound.play()
 	if _barricade_bought or not _player.spend_wood(COST_BARRICADE):
 		return
 	if not is_instance_valid(_fence):
@@ -133,10 +139,12 @@ func _on_barricade_button_pressed() -> void:
 
 
 func _on_tower_button_pressed() -> void:
+	hud_ok_sound.play()
 	if _tower_bought or not _player.spend_wood(COST_TOWER):
 		return
 	_tower_bought = true
 	if is_instance_valid(_tower):
 		_tower.visible = true
+		_tower._update_collision_state()
 		_tower.setup_obstacle()
 	_update_buttons()

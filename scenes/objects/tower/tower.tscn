@@ -2,26 +2,91 @@
 
 [ext_resource type="Script" uid="uid://d7aqqrlanpuh" path="res://scenes/objects/tower/tower.gd" id="1_tower"]
 [ext_resource type="Script" uid="uid://4k0bneq33ft6" path="res://scenes/components/health/health_component.gd" id="2_health"]
+[ext_resource type="Texture2D" uid="uid://dd27rpm7aga2d" path="res://assets/turret/spritesheet.png" id="3_5qtp4"]
+[ext_resource type="AudioStream" uid="uid://c8d7jfx9z1kl" path="res://assets/audio/turret_shoot.wav" id="4_turret_shoot"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(40, 40)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5qtp4"]
+radius = 24.0
+height = 64.0
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_1"]
-vertices = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)])
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qtp4"]
+atlas = ExtResource("3_5qtp4")
+region = Rect2(136, 0, 68, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihhh4"]
+atlas = ExtResource("3_5qtp4")
+region = Rect2(0, 0, 68, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjexn"]
+atlas = ExtResource("3_5qtp4")
+region = Rect2(68, 0, 68, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50rku"]
+atlas = ExtResource("3_5qtp4")
+region = Rect2(204, 68, 68, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0oxdv"]
+atlas = ExtResource("3_5qtp4")
+region = Rect2(136, 68, 68, 68)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihhh4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qtp4")
+}],
+"loop": true,
+"name": &"idle_east",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihhh4")
+}],
+"loop": true,
+"name": &"idle_south",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjexn")
+}],
+"loop": true,
+"name": &"idle_south_east",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50rku")
+}],
+"loop": true,
+"name": &"idle_south_west",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0oxdv")
+}],
+"loop": true,
+"name": &"idle_west",
+"speed": 5.0
+}]
 
 [node name="Tower" type="StaticBody2D" unique_id=1358840310]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_tower")
 
-[node name="Visual" type="Polygon2D" parent="." unique_id=1953054649]
-polygon = PackedVector2Array(-20, -20, 20, -20, 19.999992, 12.787491, 20, 20, -20, 20)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=974138581]
-shape = SubResource("RectangleShape2D_1")
+shape = SubResource("CapsuleShape2D_5qtp4")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=652676113]
 script = ExtResource("2_health")
 max_health = 150
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1474614708]
+sprite_frames = SubResource("SpriteFrames_ihhh4")
+animation = &"idle_west"
+
+[node name="ShootSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_turret_shoot")

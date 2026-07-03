@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://pausemenuscn01"]
 
 [ext_resource type="Script" path="res://scenes/ui/pause/pause_menu.gd" id="1_pause"]
+[ext_resource type="AudioStream" uid="uid://huddok" path="res://assets/audio/hud_ok.wav" id="2_hud_ok"]
 
 [node name="PauseMenu" type="Control" unique_id=700000001]
 visible = false
@@ -91,6 +92,9 @@ text = "Reiniciar"
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Salir"
+
+[node name="HudOkSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hud_ok")
 
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/VolumeRow/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]

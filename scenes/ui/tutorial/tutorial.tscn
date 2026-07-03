@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://dtutorial01"]
 
 [ext_resource type="Script" path="res://scenes/ui/tutorial/tutorial.gd" id="1_tutorial"]
+[ext_resource type="AudioStream" uid="uid://huddok" path="res://assets/audio/hud_ok.wav" id="2_hud_ok"]
 
 [node name="Tutorial" type="Control"]
 layout_mode = 3
@@ -77,3 +78,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(90, 40)
 text = "Omitir"
 theme_override_font_sizes/font_size = 16
+
+[node name="HudOkSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hud_ok")

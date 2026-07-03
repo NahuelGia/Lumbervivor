@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://craftingtscn01"]
 
 [ext_resource type="Script" uid="uid://craftinggdscr01" path="res://scenes/ui/crafting/crafting.gd" id="1_crafting"]
+[ext_resource type="AudioStream" uid="uid://huddok" path="res://assets/audio/hud_ok.wav" id="2_hud_ok"]
 
 [node name="CraftingBench" type="Control" unique_id=500000001]
 visible = false
@@ -56,6 +57,9 @@ text = "Barricada de madera  +100 HP reja  —  6 madera"
 [node name="TowerButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000010]
 layout_mode = 2
 text = "Torreta  Dispara a zombies  —  185 madera"
+
+[node name="HudOkSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hud_ok")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/AxeButton" to="." method="_on_axe_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ArmorButton" to="." method="_on_armor_button_pressed"]

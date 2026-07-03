@@ -35,6 +35,7 @@ signal died
 @onready var attack_timer: Timer = $AttackTimer
 @onready var health_bar: HealthBar = $HealthBar
 @onready var grunt_player: AudioStreamPlayer2D = $GruntPlayer
+@onready var hit_sound_player: AudioStreamPlayer2D = $HitSoundPlayer
 @onready var blood_particles: CPUParticles2D = $BloodParticles
 
 
@@ -168,6 +169,7 @@ func _on_velocity_computed(safe_velocity: Vector2) -> void:
 func take_damage(amount: int) -> void:
 	health.take_damage(amount)
 	blood_particles.restart()
+	hit_sound_player.play()
 	_play_hit_anim()
 
 
