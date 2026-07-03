@@ -15,6 +15,7 @@ func _ready() -> void:
 	var master_bus = AudioServer.get_bus_index("Master")
 	var current_db = AudioServer.get_bus_volume_db(master_bus)
 	volume_slider.value = db_to_linear(current_db)
+	get_tree().root.size_changed.connect(_update_fullscreen_label)
 	_update_fullscreen_label()
 
 
