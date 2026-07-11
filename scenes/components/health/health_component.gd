@@ -35,3 +35,14 @@ func restore() -> void:
 func repair(amount: int) -> void:
 	current_health = mini(current_health + amount, max_health)
 	health_changed.emit(current_health, max_health)
+
+
+func increase_max(amount: int) -> void:
+	max_health += amount
+	health_changed.emit(current_health, max_health)
+
+
+func reinforce(amount: int) -> void:
+	max_health += amount
+	current_health += amount
+	health_changed.emit(current_health, max_health)

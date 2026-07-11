@@ -3,6 +3,7 @@ extends Control
 
 @onready var health_label: Label = $MarginContainer/VBoxContainer/HealthLabel
 @onready var wood_label: Label = $MarginContainer/VBoxContainer/WoodLabel
+@onready var stone_label: Label = $MarginContainer/VBoxContainer/StoneLabel
 @onready var round_label: Label = $MarginContainer/VBoxContainer/RoundLabel
 @onready var fence_label: Label = $MarginContainer/VBoxContainer/FenceLabel
 @onready var timer_label: Label = $TimerContainer/TimerLabel
@@ -14,6 +15,10 @@ func update_health(current: int, max_val: int) -> void:
 
 func update_wood(amount: int) -> void:
 	wood_label.text = "Madera: %d" % amount
+
+
+func update_stone(amount: int) -> void:
+	stone_label.text = "Piedra: %d" % amount
 
 
 func update_fence(current: int, max_val: int) -> void:

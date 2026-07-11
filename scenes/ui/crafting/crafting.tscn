@@ -11,9 +11,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = -115.0
+offset_top = -169.0
 offset_right = 200.0
-offset_bottom = 115.0
+offset_bottom = 169.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_crafting")
@@ -46,22 +46,40 @@ layout_mode = 2
 layout_mode = 2
 text = "Hacha mejorada  +15 daño  —  8 madera"
 
+[node name="StoneAxeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000011]
+layout_mode = 2
+visible = false
+text = "Hacha de piedra  +20 daño  —  140 piedra"
+
 [node name="ArmorButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000008]
 layout_mode = 2
 text = "Armadura de madera  +30 HP máx.  —  10 madera"
+
+[node name="StoneArmorButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000012]
+layout_mode = 2
+visible = false
+text = "Armadura de piedra  +40 HP máx.  —  60 piedra"
 
 [node name="BarricadeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000009]
 layout_mode = 2
 text = "Barricada de madera  +100 HP reja  —  6 madera"
 
+[node name="StoneFenceButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000013]
+layout_mode = 2
+visible = false
+text = "Refuerzo de piedra  +100 HP máx. reja  —  150 piedra"
+
 [node name="TowerButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=500000010]
 layout_mode = 2
-text = "Torreta  Dispara a zombies  —  185 madera"
+text = "Torreta  Dispara a zombies  —  70 madera / 120 piedra"
 
 [node name="HudOkSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_hud_ok")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/AxeButton" to="." method="_on_axe_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/StoneAxeButton" to="." method="_on_stone_axe_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ArmorButton" to="." method="_on_armor_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/StoneArmorButton" to="." method="_on_stone_armor_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/BarricadeButton" to="." method="_on_barricade_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/StoneFenceButton" to="." method="_on_stone_fence_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/TowerButton" to="." method="_on_tower_button_pressed"]

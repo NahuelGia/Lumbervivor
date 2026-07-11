@@ -1551,6 +1551,10 @@ y_sort_origin = 8
 unique_name_in_owner = true
 y_sort_enabled = true
 
+[node name="Stones" type="Node2D" parent="World/Entities" unique_id=2140820109]
+unique_name_in_owner = true
+y_sort_enabled = true
+
 [node name="Player" parent="World/Entities" unique_id=1748240203 instance=ExtResource("2_player")]
 unique_name_in_owner = true
 position = Vector2(-7, 284)

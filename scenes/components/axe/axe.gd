@@ -4,6 +4,7 @@ extends Area2D
 signal hit_zombie(zombie: Zombie)
 signal hit_zombie_push(zombie: Zombie)
 signal hit_tree(tree: ChoppableTree)
+signal hit_stone(stone: ChoppableStone)
 
 @export var damage: int = 20
 @export var swing_duration: float = 0.25
@@ -66,3 +67,5 @@ func _on_body_entered(body: Node2D) -> void:
 			hit_zombie.emit(body)
 	elif body is ChoppableTree and not _is_push_mode:
 		hit_tree.emit(body)
+	elif body is ChoppableStone and not _is_push_mode:
+		hit_stone.emit(body)
