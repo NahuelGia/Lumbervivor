@@ -13,7 +13,7 @@ const DAY_COLOR := Color(1.0, 1.0, 1.0, 1.0)
 const NIGHT_COLOR := Color(0.3, 0.3, 0.5, 1.0)
 const TRANSITION_DURATION: float = 3.0
 const VICTORY_DISPLAY_DURATION: float = 2.5
-const DAY_DURATION: float = 90.0
+const DAY_DURATION: float = 60.0
 const NIGHT_DURATION: float = 120.0
 
 # Background clear color (must match project.godot default_clear_color)

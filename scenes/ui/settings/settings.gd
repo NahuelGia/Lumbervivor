@@ -4,6 +4,7 @@ class_name Settings
 @onready var volume_slider = $PanelContainer/MarginContainer/VBoxContainer/VolumeContainer/VolumeSlider
 @onready var volume_label = $PanelContainer/MarginContainer/VBoxContainer/VolumeContainer/VolumeLabel
 @onready var back_button = $PanelContainer/MarginContainer/VBoxContainer/BackButton
+@onready var hud_ok_sound: AudioStreamPlayer = $HudOkSoundPlayer
 
 func _ready() -> void:
 	# Asegurar que el audio no está muteado y tiene volumen máximo
@@ -34,4 +35,5 @@ func _update_volume_label() -> void:
 		volume_label.text = "Volumen: %d%%" % int(vol * 100)
 
 func _on_back_pressed() -> void:
+	hud_ok_sound.play()
 	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")

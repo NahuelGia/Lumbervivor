@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://dsettings01"]
 
 [ext_resource type="Script" path="res://scenes/ui/settings/settings.gd" id="1_settings"]
+[ext_resource type="AudioStream" uid="uid://huddok" path="res://assets/audio/hud_ok.wav" id="2_hud_ok"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -78,3 +79,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(200, 45)
 text = "Volver"
 theme_override_font_sizes/font_size = 18
+
+[node name="HudOkSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hud_ok")

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dm6f7gyqfs5ma"]
 
 [ext_resource type="Script" uid="uid://c3lydcoovx0au" path="res://scenes/ui/game_over/game_over.gd" id="1_game_over"]
+[ext_resource type="AudioStream" uid="uid://huddok" path="res://assets/audio/hud_ok.wav" id="2_hud_ok"]
 
 [node name="GameOverScreen" type="Control" unique_id=600000001]
 visible = false
@@ -58,5 +59,8 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Reiniciar"
+
+[node name="HudOkSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hud_ok")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

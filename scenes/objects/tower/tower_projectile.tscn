@@ -1,18 +1,17 @@
-[gd_scene format=3 uid="uid://towerprojtscn1"]
+[gd_scene format=3 uid="uid://du1tf6fptfjt1"]
 
-[ext_resource type="Script" path="res://scenes/objects/tower/tower_projectile.gd" id="1_proj"]
+[ext_resource type="Script" uid="uid://pw5ghxioopmg" path="res://scenes/objects/tower/tower_projectile.gd" id="1_proj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 4.0
 
-[node name="TowerProjectile" type="Area2D"]
-collision_layer = 1
+[node name="TowerProjectile" type="Area2D" unique_id=1944900224]
 collision_mask = 2
 script = ExtResource("1_proj")
 
-[node name="Visual" type="Polygon2D" parent="."]
-color = Color(1, 1, 0, 1)
+[node name="Visual" type="Polygon2D" parent="." unique_id=1359037687]
+color = Color(0.057831604, 0.057831604, 0, 1)
 polygon = PackedVector2Array(4, 0, 3.46, 2, 2, 3.46, 0, 4, -2, 3.46, -3.46, 2, -4, 0, -3.46, -2, -2, -3.46, 0, -4, 2, -3.46, 3.46, -2)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1623763449]
 shape = SubResource("CircleShape2D_1")

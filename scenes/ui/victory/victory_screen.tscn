@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bvictoryscene01"]
 
 [ext_resource type="Script" uid="uid://bvictoryscenegds1" path="res://scenes/ui/victory/victory_screen.gd" id="1_victory"]
+[ext_resource type="AudioStream" uid="uid://huddok" path="res://assets/audio/hud_ok.wav" id="2_hud_ok"]
 
 [node name="VictoryScreen" type="Control" unique_id=710000001]
 visible = false
@@ -59,5 +60,8 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Jugar de nuevo"
+
+[node name="HudOkSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hud_ok")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

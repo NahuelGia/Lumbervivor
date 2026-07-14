@@ -1403,6 +1403,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAACAAoAAAAAAAIAAAACAAoAAAAAAAUAAAACAAo
 tile_set = SubResource("TileSet_oaya2")
 
 [node name="WorldBorder" type="Node2D" parent="World" unique_id=1767097003]
+visible = false
 
 [node name="WallTopLeft" type="StaticBody2D" parent="World/WorldBorder" unique_id=633550500]
 position = Vector2(-507, -510)
@@ -1438,7 +1439,7 @@ shape = SubResource("RectangleShape2D_wall_h")
 
 [node name="Visual" type="Polygon2D" parent="World/WorldBorder/WallBottom" unique_id=416472138]
 color = Color(0.5, 0.5, 0.5, 1)
-polygon = PackedVector2Array(-820, -10, 820, -10, 820, 10, -820, 10)
+polygon = PackedVector2Array(-820, -10, -26, 117, 820, -10, 820, 10, -820, 10)
 
 [node name="WallLeft" type="StaticBody2D" parent="World/WorldBorder" unique_id=714974968]
 position = Vector2(-810, 0)
@@ -1490,8 +1491,7 @@ position = Vector2(-11, 101)
 scale = Vector2(1.1805568, 0.618311)
 
 [node name="Tower" parent="World/Cabin" unique_id=2000000001 instance=ExtResource("10_tower")]
-visible = false
-position = Vector2(-80, 150)
+position = Vector2(-243, 146)
 
 [node name="CraftingBenchMarker" type="StaticBody2D" parent="World/Cabin" unique_id=1996444648]
 position = Vector2(231, 150)
@@ -1548,6 +1548,10 @@ tile_set = SubResource("TileSet_wcbaq")
 y_sort_origin = 8
 
 [node name="Trees" type="Node2D" parent="World/Entities" unique_id=2140820108]
+unique_name_in_owner = true
+y_sort_enabled = true
+
+[node name="Stones" type="Node2D" parent="World/Entities" unique_id=2140820109]
 unique_name_in_owner = true
 y_sort_enabled = true
 

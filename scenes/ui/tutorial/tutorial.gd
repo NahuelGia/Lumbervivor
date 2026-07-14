@@ -5,6 +5,7 @@ class_name Tutorial
 @onready var next_button = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/NextButton
 @onready var back_button = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton
 @onready var skip_button = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SkipButton
+@onready var hud_ok_sound: AudioStreamPlayer = $HudOkSoundPlayer
 
 var current_page = 0
 var pages = [
@@ -29,6 +30,7 @@ func _ready() -> void:
 	_update_content()
 
 func _on_next_pressed() -> void:
+	hud_ok_sound.play()
 	if current_page < pages.size() - 1:
 		current_page += 1
 		_update_content()
@@ -37,9 +39,11 @@ func _on_next_pressed() -> void:
 		get_tree().change_scene_to_file("res://scenes/world/main.tscn")
 
 func _on_back_pressed() -> void:
+	hud_ok_sound.play()
 	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
 
 func _on_skip_pressed() -> void:
+	hud_ok_sound.play()
 	get_tree().change_scene_to_file("res://scenes/world/main.tscn")
 
 func _update_content() -> void:
