@@ -4,6 +4,9 @@
 [ext_resource type="Script" path="res://scenes/components/health/health_component.gd" id="2_health"]
 [ext_resource type="Script" path="res://scenes/components/health_bar/health_bar.gd" id="3_health_bar"]
 [ext_resource type="Texture2D" path="res://assets/stone/idle.png" id="4_idle"]
+[ext_resource type="AudioStream" path="res://assets/audio/stone_hit.wav" id="5_hit1"]
+[ext_resource type="AudioStream" path="res://assets/audio/stone_hit2.wav" id="6_hit2"]
+[ext_resource type="AudioStream" path="res://assets/audio/stone_hit3.wav" id="7_hit3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_stone"]
 radius = 22.0
@@ -31,3 +34,7 @@ max_health = 180
 [node name="HealthBar" type="Node2D" parent="."]
 position = Vector2(0, 30)
 script = ExtResource("3_health_bar")
+
+[node name="HitPlayer" type="AudioStreamPlayer2D" parent="."]
+max_distance = 400.0
+attenuation = 1.5
