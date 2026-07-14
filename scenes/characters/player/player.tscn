@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://cqjkobdrny5n3" path="res://assets/entities/lumberjack/walk/west.png" id="27_push_w"]
 [ext_resource type="AudioStream" uid="uid://cyvq6e118kidp" path="res://assets/audio/foosteps.wav" id="28_j8rto"]
 [ext_resource type="AudioStream" uid="uid://brolwj64kh0qt" path="res://assets/audio/axe_tree_hit.wav" id="29_b4gk5"]
+[ext_resource type="AudioStream" path="res://assets/audio/lumber_hurt.wav" id="29_hurt"]
 [ext_resource type="Texture2D" uid="uid://detg32al3o5l" path="res://assets/lumberjack/push/push_north_east.png" id="30_push_ne"]
 [ext_resource type="Texture2D" uid="uid://cqgukbf4bxn0v" path="res://assets/lumberjack/push/push_north_west.png" id="31_push_nw"]
 [ext_resource type="Texture2D" uid="uid://c14jr5v70s50o" path="res://assets/lumberjack/push/push_south.png" id="32_push_s"]
@@ -2267,3 +2268,6 @@ stream = ExtResource("29_b4gk5")
 
 [node name="ZombieHitPlayer" type="AudioStreamPlayer" parent="." unique_id=1381664895]
 volume_db = -8.0
+
+[node name="HurtPlayer" type="AudioStreamPlayer" parent="." unique_id=1381664896]
+stream = ExtResource("29_hurt")

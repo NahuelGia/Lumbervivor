@@ -18,6 +18,10 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 
 window/stretch/mode="viewport"
 
+[gui]
+
+theme/custom="res://theme/game_theme.tres"
+
 [input]
 
 move_right={

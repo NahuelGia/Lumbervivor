@@ -8,6 +8,7 @@ const HIT_SOUNDS: Array = [
 	preload("res://assets/audio/hit2.wav"),
 	preload("res://assets/audio/hit3.wav"),
 ]
+const HURT_SOUND := preload("res://assets/audio/lumber_hurt.wav")
 const PUSH_FORCE: float = 300.0
 const PUSH_DURATION: float = 0.3
 
@@ -36,6 +37,7 @@ signal died
 @onready var footstep_player: AudioStreamPlayer = $FootstepPlayer
 @onready var axe_hit_player: AudioStreamPlayer = $AxeHitPlayer
 @onready var zombie_hit_player: AudioStreamPlayer = $ZombieHitPlayer
+@onready var hurt_player: AudioStreamPlayer = $HurtPlayer
 
 
 func _ready() -> void:
@@ -153,6 +155,8 @@ func _get_push_anim() -> String:
 
 func take_damage(amount: int) -> void:
 	health.take_damage(amount)
+	hurt_player.stream = HURT_SOUND
+	hurt_player.play()
 
 
 func restore_health() -> void:
